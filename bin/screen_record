@@ -1,0 +1,118 @@
+#!/bin/bash
+
+XDO="xdotool"
+RMD="recordmydesktop"
+SLOP="slop"
+#DEVICE="--device hw:0,0"
+DEVICE=""
+#pci-0000:3e:00.0-usb-0:1.5:1.0
+# DEVICE="--device hw:1,0"
+
+X_START=-1
+Y_START=-1
+WIDTH=-1
+HEIGHT=-1
+
+
+options() {
+  #! /bin/bash
+  while [[ $# -gt 0 ]] ; do
+    key="$1"
+    case $key in
+        -s|--select)
+        USE_SELECTION="1"
+        ;;
+        -g|--gif)
+        CONVERT_TO_GIF="1"
+        ;;
+        -o|--outfile)
+        OUTFILE="$2"
+        shift # past argument
+        ;;
+        -h|--help)
+        usage
+        exit
+        ;;
+        *)
+                # unknown option
+        ;;
+    esac
+    shift # past argument or value
+  done
+}
+
+
+usage ()
+{
+    cat <<__EOF__
+Starts a screen capture.
+
+  Usage:
+    screen_record [-s -g] -o outfile
+__EOF__
+}
+
+hasinstalled ()
+{
+    which "$1" > /dev/null 2>&1
+}
+
+dependencies ()
+{
+    if ! hasinstalled $XDO; then
+        echo "Did not find $XDO  Installing..."
+        sudo dnf install $XDO
+    fi
+
+    if ! hasinstalled $RMD; then
+        echo "Did not find $RMD  Installing..."
+        sudo dnf install $RMD
+    fi
+
+    if ! hasinstalled $SLOP; then
+        echo "Did not find $SLOP  Installing..."
+        sudo dnf install $SLOP
+    fi
+
+    hasinstalled $XDO && hasinstalled $RMD && hasinstalled $SLOP
+}
+
+mousediff ()
+{
+
+    read -r X Y W H G ID < <($SLOP -f "%x %y %w %h %g %i")
+    X_START="$X"
+    Y_START="$Y"
+    WIDTH="$W"
+    HEIGHT="$H"
+}
+
+if [ -z "$1" ] || [[ $@ =~ help ]]; then
+    usage
+    exit
+fi
+
+if ! dependencies; then
+  echo "Could not run; missing dependencies" >&2
+fi
+
+options "$@"
+
+EXTRA_OPTIONS="-o $OUTFILE"
+
+if [ ! -z "$CONVERT_TO_GIF" ]; then
+  EXTRA_OPTIONS="$EXTRA_OPTIONS --fps 10"
+fi
+
+if [ ! -z "$USE_SELECTION" ]; then
+  mousediff
+  EXTRA_OPTIONS="$EXTRA_OPTIONS -x $X_START -y $Y_START --width $WIDTH --height $HEIGHT"
+fi
+$RMD $EXTRA_OPTIONS $DEVICE
+
+if [ ! -z "$CONVERT_TO_GIF" ]; then
+  mkdir -p $OUTFILE.tmp/tmp
+  mplayer -ao null $OUTFILE.ogv -vo jpeg:outdir=$OUTFILE.tmp/tmp
+  convert --delay 100 $OUTFILE.tmp/tmp/* $OUTFILE.gif
+  rm -rf $OUTFILE.ogv $OUTFILE.tmp
+fi

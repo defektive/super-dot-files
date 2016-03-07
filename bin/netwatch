@@ -1,0 +1,8 @@
+#! /bin/bash
+
+while true; do
+  lsof -i -n -o -P | awk '{print \$2,\$1,\$8,\$9}' | sed -s 's/->/ /g'
+
+  clear
+  sleep .5
+done

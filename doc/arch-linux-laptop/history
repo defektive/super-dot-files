@@ -1,0 +1,111 @@
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/America/Boise /etc/localtime
+hwclock --systohc --utc
+cp /fedora/etc/hostname etc/
+cp /fedora/etc/machine-id etc/
+vim etc/locale.gen
+locale-gen
+localectl set-locale LANG=en_US.UTF-8
+echo LANG=en_US.UTF-8 > etc/locale.conf
+
+passwd
+
+vim /etc/mkinitcpio.conf
+mkinitcpio -p linux
+bootctl --path=/boot install
+echo 'default arch' >> boot/loader/loader.conf
+echo 'timeout 5' >> boot/loader/loader.conf
+vim boot/loader/entries/arch.conf
+
+
+
+exit
+
+wifi-menu
+
+
+
+cd /tmp
+git clone https://aur.archlinux.org/package-query.git
+cd package-query/
+makepkg -si
+cd ..
+git clone https://aur.archlinux.org/yaourt.git
+cd yaourt/
+makepkg -si
+
+# getting graphical
+pacman -Syu
+pacman -S xorg xorg-xinit dmenu xautolock i3-gaps sxhkd rxvt-unicode-patched xf86-video-fbdev xf86-video-nouveau ttf-dejavu
+echo exec i3 > .xinitrc
+startx
+
+# getting active directory
+pacman -S krb5 samba sssd gamin extra/libpwquality
+
+cp -r /etc/pam.d/ /etc/pam.d.backup
+cp /fedora/etc/pam.d/system-auth /etc/pam.d
+cp /fedora/etc/pam.d/passwd /etc/pam.d
+cp -r /fedora/etc/krb5.* /etc/
+cp -r /fedora/var/lib/sss /var/lib/
+cp /etc/nsswitch.conf /etc/nsswitch.conf.backup
+cp /fedora/etc/nsswitch.conf /etc/
+
+# remove oddjob mkdir
+vim /etc/pam.d/system-auth
+
+rm /etc/krb5.conf.d/crypto-policies
+cp /fedora/usr/share/crypto-policies/DEFAULT/krb5.txt /etc/krb5.conf.d/crypto-policies
+
+systemctl restart sssd
+systemctl enable sssd
+
+pacman -S openconnect openssh
+
+vim /etc/sudoers
+
+yaourt -S
+yaourt -Ss i3
+yaourt -Ss i3-gaps
+yaourt -S
+
+yaourt -S bspwm lemonbar-xft-git
+yaourt -S ttf-font-icons
+
+
+sudo cp /fedora/etc/pam.d/chsh /etc/pam.d
+# set zsh as default in sssd.conf
+sudo vim /etc/sssd/
+sudo systemctl restart sssd
+
+
+yaourt -S
+yaourt -S google-chrome
+yaourt -S slack-desktop
+yaourt -S feh
+9864  yaourt -S xdo xtitle
+9866  yaourt -S bc
+9866  yaourt -S docker-compose
+sudo cp -r /fedora/etc/systemd/system/docker.service.d/ /etc/systemd/system
+
+
+yaourt -S ruby
+yaourt -S extra/xf86-input-synaptics
+
+yaourt -S acpi
+
+9963  pod2man
+9959  /usr/bin/core_perl
+
+9935  yaourt -S mpd mpc ncmpcpp
+9985  yaourt -S pulseaudio paprefs pavucontrol
+9952  yaourt -S sutils-git
+9958  yaourt -S lemonbar-xft-git
+
+9936  sudo vim /etc/mpd.conf
+
+9989  sudo vim /etc/pulse/default.pa
+9990  cat /fedora/etc/pulse/default.pa
+9991  sudo vim /etc/pulse/default.pa
+
+10001* yaourt -S

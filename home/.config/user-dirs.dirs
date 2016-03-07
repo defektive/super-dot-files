@@ -1,0 +1,7 @@
+XDG_DESKTOP_DIR="$HOME/docs/"
+XDG_DOCUMENTS_DIR="$HOME/docs/"
+XDG_DOWNLOAD_DIR="$HOME/docs/downloads/"
+XDG_MUSIC_DIR="/home/mpd/MusicSync/"
+XDG_PICTURES_DIR="$HOME/docs/pictures/"
+XDG_VIDEOS_DIR="$HOME/docs/videos/"
+

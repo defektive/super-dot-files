@@ -1,0 +1,130 @@
+#!/bin/bash
+# Default acpi script that takes an entry for all actions
+
+pushd `dirname $(realpath $0)` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+
+echo $SCRIPTPATH
+
+getXuser() {
+    Xtty=$(</sys/class/tty/tty0/active)
+    Xpid=$(pgrep -t $Xtty -f Xorg)
+
+    Xenv+=("$(egrep -aoz 'USER=.+' /proc/$Xpid/environ)")
+    Xenv+=("$(egrep -aoz 'XAUTHORITY=.+' /proc/$Xpid/environ)")
+    Xenv+=("$(egrep -aoz ':[0-9](.[0-9])?' /proc/$Xpid/cmdline)")
+
+    Xenv=(${Xenv[@]#*=})
+
+    (( ${#Xenv[@]} )) && {
+        export XUSER=${Xenv[0]} XAUTHORITY=${Xenv[1]} DISPLAY=${Xenv[2]}
+        su -c "$*" "$XUSER"
+    }
+}
+# logger "ACPI::LOG $1 $2 $3"
+
+case "$1" in
+    button/power)
+        case "$2" in
+            PBTN|PWRF)
+                logger 'PowerButton pressed'
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    button/sleep)
+        case "$2" in
+            SLPB|SBTN)
+                logger 'SleepButton pressed'
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    ac_adapter)
+        if [ "`cat /sys/class/power_supply/AC/online`" == "1" ]; then
+          logger 'Full Brightness'
+          $SCRIPTPATH/sdf_backlight
+        else
+          logger 'Low Brightness'
+          $SCRIPTPATH/sdf_backlight low
+        fi
+
+        ;;
+    battery)
+        case "$2" in
+            BAT0)
+                case "$4" in
+                    00000000)
+                        logger 'Battery online'
+                        ;;
+                    00000001)
+                        logger 'Battery offline'
+                        ;;
+                esac
+                ;;
+            CPU0)
+                ;;
+            *)  logger "ACPI action undefined: $1 $2 $3 $4" ;;
+        esac
+        ;;
+    button/lid)
+        case "$3" in
+            close)
+                logger 'LID closed'
+                ;;
+            open)
+                logger 'LID opened'
+                ;;
+            *)
+                logger "ACPI action undefined: $3"
+                ;;
+        esac
+        ;;
+
+    cd/next|cd/prev|cd/play)
+        case "$2" in
+            CDNEXT)
+                mpc next
+                ;;
+            CDPREV)
+                mpc prev
+                ;;
+            CDPLAY)
+                mpc toggle
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    # button/volumeup|button/volumedown|button/mute)
+    #     case "$2" in
+    #         VOLDN)
+    #             getXuser $SCRIPTPATH/sdf_volume down
+    #             ;;
+    #         VOLUP)
+    #             $SCRIPTPATH/sdf_volume up
+    #             ;;
+    #         MUTE)
+    #             $SCRIPTPATH/sdf_volume toggle
+    #             ;;
+    #         *)
+    #             logger "ACPI action undefined: $2"
+    #             ;;
+    #     esac
+    #     ;;
+    processor)
+        /dev/null
+        ;;
+    *)
+        logger "ACPI group/action undefined: '$1' / '$2'"
+        ;;
+esac
+
+
+# vim:set ts=4 sw=4 ft=sh et:

@@ -1,0 +1,15 @@
+#! /bin/bash
+if [[ -z $1 ]]; then
+    echo usage: file-encrypt input-path
+    echo '  file-encrypt my-secrets.md'
+    exit 1
+fi
+set -e
+FILE=$1
+OUTFILE=$FILE.aesh
+
+echo '#! /bin/bash' > $OUTFILE
+echo 'tail -n +3 $0 | openssl enc -aes-256-cbc -d; exit' >> $OUTFILE
+cat $FILE | openssl enc -aes-256-cbc -e >> $OUTFILE
+chmod +x $OUTFILE
+rm $FILE

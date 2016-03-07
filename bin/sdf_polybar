@@ -1,0 +1,10 @@
+#! /bin/bash
+
+sdf_bspwm_desktops
+killall polybar
+
+for monitor in `xrandr --listactivemonitors | tail -n +2 | cut -d ' ' -f 6`; do
+  echo $monitor
+  polybar -r -c ~/.config/polybar/config $monitor & #2>/dev/null 1>/dev/null &
+done
+

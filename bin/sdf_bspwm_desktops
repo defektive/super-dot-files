@@ -1,0 +1,40 @@
+#! /bin/bash
+
+# bspc monitor -d {1,2,3,4,5,6}
+all=( 1 2 3 4 5 6 )
+desktops=( 4 5 6 )
+
+internal_monitor='eDP-1'
+active_external_monitor=`xrandr --listactivemonitors | tail -n +2 | cut -d ' ' -f 6 | grep -v eDP-1`
+action="$1"
+
+if [ "$action" == "" ]; then
+  if [ ! -z $active_external_monitor ]; then
+    action="external"
+  else
+    action='internal'
+  fi
+fi
+
+if [ "$action" == "internal" ] ; then
+  echo "Moving desktops to local monitor.."
+  for i in "${all[@]}"; do
+    echo bspc desktop $i -m $internal_monitor
+    bspc desktop $i -m $internal_monitor
+  done
+elif [ "$action" == "external" ] ; then
+  if [[ "$active_external_monitor" =~ ^HDMI ]]; then
+    echo "Moving last desktop to HDMI"
+    bspc desktop "${desktops[-1]}" -m $active_external_monitor
+    bspc config -m $active_external_monitor top_padding 0
+  else
+    echo "Moving desktops to external monitor"
+    for i in "${desktops[@]}"; do
+      bspc desktop $i -m $active_external_monitor
+    done
+  fi
+fi
+
+bspc desktop Desktop -f
+bspc desktop next.local -f
+bspc desktop Desktop --remove

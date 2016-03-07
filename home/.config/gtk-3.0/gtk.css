@@ -1,0 +1,20 @@
+window.ssd headerbar.titlebar {
+    display: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    min-height: 0;
+
+}
+
+window.ssd headerbar.titlebar button.titlebutton {
+    display: none;
+    padding: 0px;
+    min-height: 0;
+    min-width: 0;
+
+}
+
+VteTerminal, vte-terminal {
+    padding: 40px;
+}
+

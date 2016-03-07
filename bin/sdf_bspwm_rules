@@ -1,0 +1,63 @@
+#! /bin/sh
+
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+logfile=$SCRIPTPATH/../logs/bspwm_rules.log
+#
+wid=$1
+class=$2
+instance=$3
+title=$(xtitle "$wid")
+
+echo "wid:'$wid'	class:'$class'	iid:'$instance'	title:'$title'" >> $logfile
+
+if [ "$instance" = atom ] ; then
+	pid=`xprop -id $wid _NET_WM_PID|sed 's/[^0-9]//g'`
+	project=`ps -up$pid | grep -o super-dot-files`
+	echo "	PID:$pid" >> $logfile
+	echo "	project:$project" >> $logfile
+
+	case "$project" in
+		super-dot-files)
+			echo "desktop=^6 focus=on"
+			;;
+	esac
+# elif [ "$instance" = google-chrome ] ; then
+# 	pid=`xprop -id $wid _NET_WM_PID|sed 's/[^0-9]//g'`
+# 	profile=`ps -up$pid | grep -oP '(profile-directory=[^-]*)' |cut -d= -f 2`
+#
+# 	ps -up$pid >> $logfile
+#
+# 	echo "	PID:'$pid'" >> $logfile
+# 	echo "	profile:'$profile'" >> $logfile
+#
+# 	case "$profile" in
+# 		Default)
+# 			echo "desktop=^3 focus=on"
+# 			;;
+# 	esac
+# 	case "$profile" in
+# 		'Profile 1')
+# 			echo "desktop=^4 focus=on"
+# 			;;
+# 	esac
+
+
+else 
+
+fwid=$(bspc query -N -n focused.automatic)
+
+if [ -n "$fwid" ] ; then
+	wattr wh $fwid | {
+		read width height
+		if [ $width -gt $height ] ; then
+			echo "split_dir=west"
+		else
+			echo "split_dir=south"
+		fi
+		echo "split_ratio=0.5"
+	}
+fi
+
+fi

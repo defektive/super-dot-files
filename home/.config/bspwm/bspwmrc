@@ -1,0 +1,73 @@
+#! /bin/bash
+
+#pushd `dirname $0` > /dev/null
+#SCRIPTPATH=`pwd`
+#popd > /dev/null
+
+#LOG_PATH=$SCRIPTPATH/../../logs
+
+# force allstd out to be written to a log
+#logfile=$LOG_PATH/bspwm.log
+#exec > $logfile 2>&1
+
+#echo Starting BSPWM
+#echo SDF Path: $SDF_PATH
+
+#xrandr --output DP1-8 --auto --output eDP1 --off
+
+# this is needed for notifications
+
+# compton --config ~/.config/bspwm/compton.conf -b
+echo Configuring bspwm
+
+bspc config normal_border_color "#00000000"
+bspc config focused_border_color "#666666"
+bspc config presel_feedback_color "#666666"
+bspc config border_width        1
+bspc config window_gap         0
+bspc config focus_follows_pointer true
+bspc config pointer_follows_focus true
+bspc config click_to_focus false
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      false
+
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
+bspc config external_rules_command "$(which sdf_bspwm_rules)"
+bspc config top_padding 25
+echo configuration complete
+
+# create desktops
+#bspc monitor -d {,,,,,,,}
+bspc monitor -d {1,2,3,4,5,6}
+
+bspc rule -a Slack desktop='^1'
+bspc rule -a google-chrome desktop='^3'
+bspc rule -a google-chrome:inbox.google.com desktop='^1'
+bspc rule -a google-chrome:calendar.google.com desktop='^1'
+bspc rule -a google-chrome:trello.com__b_p0smG8Ny_for desktop='^2'
+bspc rule -a Zathura state=tiled
+bspc rule -a Chromium:crx_knipolnnllmklapflnccelgolnpehhpl state=tiled sticky=off
+bspc rule -a rdesktop state=tiled sticky=off
+#bspc config external_rules_command $HOME/.config/bspwm/external_rules.sh
+slack &
+/opt/eset/esets/bin/esets_gui & 
+run_keybase &
+# these have been moved to sxhkd shortcuts
+#google-chrome --profile-directory="Drdesktopefault" --app=https://inbox.google.com &
+#google-chrome --profile-directory="Default" --app=https://calendar.google.com &
+#google-chrome --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
+#google-chrome --profile-directory="Profile 1" --app=https://play.google.com/music/listen#/now &
+
+# disable touch pad when typing
+# syndaemon -i .8 -tk -d
+
+# lets start on desktop 4 
+# bspc desktop -f '^4'
+
+# start the panel
+#~/.config/bspwm/panel &
+sdf_monitors auto
+echo EOF bspwmrc

@@ -1,0 +1,19 @@
+#! /bin/bash
+
+RANDOM_DATA=`openssl rand 10000 | tr -cd '\41-\176'`
+RANDOM_LINES=`echo $RANDOM_DATA | fold -w 140 | head -n 5`
+
+echo -n '    |........'
+for i in {1..13}; do
+  echo -n '|.........'
+done
+echo '|'
+echo "$RANDOM_LINES" | sed 's/^/    /'
+echo
+echo "$RANDOM_LINES" | while read line; do
+  echo -n "  16 bytes "; echo $line | cut -b1-16 ;
+  echo -n "  32 bytes "; echo $line | cut -b1-32 ;
+  echo -n "  64 bytes "; echo $line | cut -b1-64 ;
+  echo -n " 128 bytes "; echo $line | cut -b1-128 ;
+  echo
+done

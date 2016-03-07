@@ -1,0 +1,92 @@
+URxvt*scrollBar: false
+
+
+Xcursor.size: 10
+
+Xft*dpi:                100
+Xft*antialias:          true
+Xft*hinting:            full
+
+URxvt*internalBorder: 40
+URxvt*geometry: 85x16
+
+URxvt*cursorUnderline:      true
+URxvt*cursorBlink:          true
+
+!URxvt*fading:        0
+!URxvt*tintColor:     #ffffff
+!URxvt*inheritPixmap:     False
+
+! how many lines you want it to save per session
+URxvt*saveLines:32767
+URxvt.print-pipe: cat > /dev/null
+
+! these three lines enable clicking on links to open them ;)
+!## if you want to enable tab support, append ,tabbed to the next line
+!## then use shift+down arrow to create tabs and shift+{left,right} arrows to switch between them
+!URxvt*perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,clipboard
+!URxvt*matcher.button: 1
+!# dont forget to change this to your favorite browser
+!URxvt*urlLauncher: /usr/bin/chromium
+
+!URxvt*font: xft:Inconsolata:Medium:size=14
+URxvt*font: xft:DejaVu Sans Mono:size=12,\
+            xft:Icons:size=14:,\
+            xft:Noto Color Emoji:size=160,\
+            xft:Symbola,\
+            9x15
+!URxvt*font: xft:asdasd:size=12,xft:Icons:size=14
+!URxvt*boldFont: xft:DejaVu Sans Mono:size=12:weight=bold
+Urxvt.letterSpace: 5
+URxvt*background: #000000
+URxvt*foreground: gray
+URxvt.transparent:   true
+URxvt.shading:       30
+
+!! Yeah, I am one of those, who use these keys in Vim :-(
+!urxvt.keysym.Home:          \033[1~
+!urxvt.keysym.End:           \033[4~
+URxvt*keysym.Control-Up:    \033[1;5A
+URxvt*keysym.Control-Down:  \033[1;5B
+URxvt*keysym.Control-Left:  \033[1;5D
+URxvt*keysym.Control-Right: \033[1;5C
+
+!! Tango color theme
+!! Strange - it matches tango from gnome-terminal, but looks different
+URxvt.color0: rgb:00/00/00
+URxvt.color1: rgb:CC/00/00
+URxvt.color2: rgb:4E/9A/06
+URxvt.color3: rgb:C4/A0/00
+URxvt.color4: rgb:34/65/A4
+URxvt.color5: rgb:75/50/7B
+URxvt.color6: rgb:06/98/9A
+URxvt.color7: rgb:D3/D7/CF
+URxvt.color8: rgb:55/57/53
+URxvt.color9: rgb:EF/29/29
+URxvt.color10: rgb:8A/E2/34
+URxvt.color11: rgb:FC/E9/4F
+URxvt.color12: rgb:72/9F/CF
+URxvt.color13: rgb:AD/7F/A8
+URxvt.color14: rgb:34/E2/E2
+URxvt.color15: rgb:EE/EE/EC
+URxvt.colorBD: rgb:ff/ff/ff
+
+! Molokai theme
+URxvt*background: #101010
+URxvt*foreground: #d0d0d0
+URxvt.color0: #101010
+URxvt.color1: #960050
+URxvt.color2: #66aa11
+URxvt.color3: #c47f2c
+URxvt.color4: #30309b
+URxvt.color5: #7e40a5
+URxvt.color6: #3579a8
+URxvt.color7: #9999aa
+URxvt.color8: #303030
+URxvt.color9: #ff0090
+URxvt.color10: #80ff00
+URxvt.color11: #ffba68
+URxvt.color12: #5f5fee
+URxvt.color13: #bb88dd
+URxvt.color14: #4eb4fa
+URxvt.color15: #d0d0d0

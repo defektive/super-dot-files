@@ -1,0 +1,85 @@
+# program launcher
+super + space
+	sdf_dmenu_run
+
+#######################
+## Desktops and Monitors
+#######################
+
+# focus the next/previous desktop on current monitor
+super + bracket{left,right}
+  bspc desktop -f {prev,next}.local
+
+# focus the next/previous desktop on current monitor w/mouse
+super + ctrl + button{4,5}
+  bspc desktop -f {next,prev}.local
+
+# focus the next/previous monitor
+super + ctrl + bracket{left,right}
+  bspc monitor -f {prev,next}
+
+super + ctrl + shift + button{4,5}
+  bspc monitor -f {prev,next}
+
+# move focused desktop to next/previous monitor
+super + ctrl + alt + bracket{left,right}
+	bspc desktop focused -m {prev,next}; bspc desktop --focus last
+
+# swap focused desktop to the next/previous desktop
+super + shift + bracket{left,right}
+  bspc desktop focused -s {prev,next}; bspc desktop --focus last
+
+# Delete teh current desktop
+super + ctrl + alt + Down
+	bspc desktop next.local -f; \
+	bspc desktop last --remove
+
+## reset desktops
+super + shift + Escape
+	$SDF_PATH/bin/sdf_bspwm_desktops
+#	bspc monitor -d \{,,,,,,,\}
+
+#######################
+## Window management
+#######################
+
+# SDF: focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# SDF: preselect the direction
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# SDF: expand the tiled space in the given direction
+super + alt + {Left,Down,Up,Right}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+
+# SDF: contract the tiled space in the given direction
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
+
+# rotate windows
+super + {_, shift +} r
+	bspc node @focused:parent -R {90, -90}
+
+super + ctrl + {_, shift +} r
+	bspc node -R {90, -90}
+
+super + shift + B
+	bspc node @focused:/ -E
+
+super + {_, shift + } a
+  bspc node @focused:/ -F {horizontal,vertical}
+
+# focus the next/previous node on this desktop
+super + {_,shift + } slash
+	bspc node @focused:/ -C {forward,backward}
+
+# Toggle Monocle mode with the mouse
+super button9
+	bspc desktop -l next
+
+# focus the next/previous node on this desktop with the mouse
+super + {button5,button4}
+	bspc node @focused:/ -C {forward,backward}

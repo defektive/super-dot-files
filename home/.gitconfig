@@ -1,0 +1,41 @@
+[color]
+    ui = true
+
+[user]
+    name = defektive
+    email = defektive@noreply.github.com
+
+[alias]
+    open = "!hub browse $(pwd | sed 's/.\\+github.com\\///')"
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    fom = fetch origin master
+    rom = !git fom && git rebase origin/master
+    irom = !git fom && git rebase -i HEAD~`git lg origin/master..HEAD|wc -l`
+    aa = commit -a --amend -C HEAD
+    pa = commit -p --amend -C HEAD
+    ia = commit --interactive --amend
+    lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    lga = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    unpushed = log @{u}..
+
+[core]
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+
+[push]
+    default = simple
+
+[branch]
+    autosetuprebase = always
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+[pull]
+	rebase = true

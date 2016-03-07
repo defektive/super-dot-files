@@ -1,0 +1,105 @@
+# terminal emulator
+super + Return
+	termite
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+{XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
+	sdf_volume {up, down, toggle}
+
+shift + XF86AudioMute
+	pavucontrol
+
+{XF86AudioPlay, XF86AudioNext, XF86AudioPrev}
+	mpc {toggle, next, prev}
+
+super + alt + {button4, button5, button9}
+	sdf_volume {up, down, toggle}
+
+super + alt + ctrl + {button4, button5, button9}
+	mpc {prev, next, toggle}
+
+{XF86MonBrightnessDown, XF86MonBrightnessUp}
+	sdf_brightness {down, up}
+
+# auto detect prefererred monitor layout
+super + {F3, F4}
+	sdf_monitors {_, auto}
+
+# internal/external monitor monitor
+super + { F1, F2}
+	sdf_monitors {internal, external}
+
+# App shortcuts
+
+## Slack
+super + ctrl + F1
+	slack &
+
+## Work Inbox
+super + ctrl + F2
+	chrome-launcher --profile-directory="Profile 1" --app=https://inbox.google.com &
+
+## Work Calendar
+super + ctrl + F3
+	google-chrome-stable --profile-directory="Profile 1" --app=https://calendar.google.com &
+
+## Work Calendar
+super + ctrl + F4
+	google-chrome-stable --profile-directory="Default" --app=https://trello.com/b/p0smG8Ny/for &
+
+## Work chrome
+super + ctrl + {_,shift +} F5
+	{_, primusrun} google-chrome-stable --profile-directory="Profile 1" &;
+
+## My chrome
+super + ctrl + {_,shift +} F6
+	{_, primusrun} google-chrome-stable --profile-directory="Default" &;
+
+## My hangouts
+super + ctrl + {_,shift +} F7
+	{_,primusrun} /opt/google/chrome/google-chrome --profile-directory=Default --app-id=knipolnnllmklapflnccelgolnpehhpl &
+
+## My Bluejeans
+super + ctrl + alt + {_,shift +} 1
+	echo "https://bluejeans.com/1260595370/?src=bho%27s_awesome_meeting_keyboard_shortcut" | xclip -selection clipboard -target text/plain -i && {bluejeans &, echo 1}
+
+## Screenshot
+super + ctrl + shift + 4
+	 maim -s -u --format=png /dev/stdout | xclip -selection clipboard -target image/png -i
+
+## Screenshot
+super + ctrl + shift + 6
+	 maim -s -u --format=png /tmp/screenshot; echo /tmp/screenshot | xclip -selection clipboard -target text/plain -i
+
+## Emoji Screenshot
+super + ctrl + shift + 5
+	 maim -s -u --format=png /tmp/screenshot; convert /tmp/screenshot -resize 128x128 /tmp/screenshot; echo /tmp/screenshot | xclip -selection clipboard -target text/plain -i
+
+## Screen record
+super + ctrl + shift + 0
+		cd /tmp ;\
+	  screen_record -s -g -o screencap;\
+		notify-send "gif copied to clipboard";\
+		cat screencap.gif | xclip -selection clipboard -target image/gif -i
+
+super + ctrl + shift + 9
+		notify-send hello
+
+## Scratch pad
+super + ctrl + F11
+	atom $HOME/scratch &;
+
+## Edit SDF Config
+super + ctrl + F12
+	atom $SDF_PATH &;
+
+# Screen lock
+ctrl + alt + l
+	gnome-screensaver-command -l || i3lock || slock
+
+# restart panel
+super + ctrl + Escape
+	$SDF_PATH/bin/sdf_polybar

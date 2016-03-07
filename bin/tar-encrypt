@@ -1,0 +1,14 @@
+#! /bin/bash
+if [[ -z $1 || -z $2 ]]; then 
+    echo usage: tar-encrypt output-file input-path
+    echo '  tar-encrypt secrets.sx /etc/shadow'
+    exit 1
+fi
+
+FILE=$1
+DIR=$2
+
+echo '#! /bin/bash' >$FILE
+echo 'tail -n +3 $0 | base64 -d | openssl enc -aes-256-cbc -d | tar -xz; exit' >> $FILE
+tar -cz $DIR | openssl enc -aes-256-cbc -e | base64 >> $FILE
+chmod +x $FILE

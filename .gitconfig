@@ -1,0 +1,50 @@
+[color]
+    ui = true
+
+[user]
+    name = defektive
+    email = sirbradleyd@gmail.com
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    fom = fetch origin master
+    rom = !git fom && git rebase origin/master
+    aa = commit -a --amend -C HEAD
+    ia = commit --interactive --amend
+    lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    lga = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    unpushed = log @{u}..
+    gerrit-submit = "!bash -c ' \
+        local_ref=$(git symbolic-ref HEAD); \
+        local_name=${local_ref##refs/heads/}; \
+        remote=$(git config branch.\"$local_name\".remote || echo origin); \
+        remote_ref=$(git config branch.\"$local_name\".merge); \
+        remote_name=${remote_ref##refs/heads/}; \
+        remote_review_ref=\"refs/for/$remote_name\"; \
+        r=\"\"; \
+        if [[ $0 != \"\" && $0 != \"bash\" ]]; then r=\"--reviewer=$0\"; fi; \
+        if [[ $1 != \"\" ]]; then r=\"$r --reviewer=$1\"; fi; \
+        if [[ $2 != \"\" ]]; then r=\"$r --reviewer=$2\"; fi; \
+        if [[ $3 != \"\" ]]; then r=\"$r --reviewer=$3\"; fi; \
+        if [[ $4 != \"\" ]]; then r=\"$r --reviewer=$4\"; fi; \
+        git push --receive-pack=\"gerrit receive-pack $r\" $remote HEAD:$remote_review_ref'"
+
+[instructure]
+    name = Brad Horrocks
+    user = bhorrocks@instructure.com
+
+[core]
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+[push]
+    default = simple
+[branch]
+    autosetuprebase = always
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true

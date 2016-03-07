@@ -1,6 +1,7 @@
 export RUBYMINE_JDK="/usr/java/latest/"
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+SDF_PATH=`dirname $(realpath ~/.zshrc)`
 
 # key bindings
 bindkey "e[1~" beginning-of-line
@@ -71,11 +72,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git wd)
-
-# User configuration
-
-  export PATH="/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/brad/.local/bin:/home/brad/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="$SDF_PATH/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/brad/.local/bin:/home/brad/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -84,7 +81,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+  export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi

@@ -30,7 +30,7 @@ sudo dnf install \
 
 sudo dnf groupinstall "Development Tools"
 
-mkdir -p ~/development/github.com/{defektive,baskerville,LemonBoy}
+mkdir -p ~/development/github.com/{defektive,baskerville,krypt-n}
 cd  ~/development/github.com/baskerville
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/baskerville/sxhkd.git
@@ -38,15 +38,24 @@ git clone https://github.com/baskerville/sutils.git
 git clone https://github.com/baskerville/xtitle.git
 git clone https://github.com/baskerville/xdo.git
 
-cd  ~/development/github.com/LemonBoy
-git clone https://github.com/LemonBoy/bar.git
-rcd  ~/development/github.com/baskerville
+cd  ~/development/github.com/baskerville
 cd bspwm/ && make && sudo make install
 cd ../sxhkd/ && make && sudo make install
 cd ../sutils/ && make && sudo make install
 cd ../xtitle/ && make && sudo make install
 cd ../xdo/ && make && sudo make install
-cd  ~/development/github.com/LemonBoy/bar && make && sudo make install
+
+# patched lemonbar
+cd ~/development/github.com/krypt-n
+cd !:1
+git clone https://github.com/krypt-n/bar.git
+cd bar && make && sudo make install
+
+# Lemonbar
+# mkdir ~/development/github.com/LemonBoy
+# cd !:1
+# git clone https://github.com/LemonBoy/bar.git
+# cd  ~/development/github.com/LemonBoy/bar && make && sudo make install
 
 ## setup config
 ### Add bspwm to the list of xsessions
@@ -84,3 +93,8 @@ sudo dnf install mpd mpc ncmpcp
 ### OMFG!!! I need to learn selinux
 
 For now I am just starting mpd when I log in.
+
+## update
+```
+sudo dnf update
+```

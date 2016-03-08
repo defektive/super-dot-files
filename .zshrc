@@ -1,5 +1,15 @@
 # rubymine *needs* oracle JDK... psh it didnt need it on archlinux
 export RUBYMINE_JDK="/usr/java/latest/"
+export WEBIDE_JDK="/usr/java/latest/"
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+RUBIES+=(
+    "$HOME/.rubies"
+)
+
+export GOPATH="$HOME/development/go-workspace"
+export PATH="$GOPATH/bin:$PATH"
+
 # bspwm java gui fix
 export _JAVA_AWT_WM_NONREPARENTING=1
 SDF_PATH=`dirname $(realpath ~/.zshrc)`

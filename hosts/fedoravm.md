@@ -143,3 +143,66 @@ sudo rpm -Uvh compton-0.1.0-2.4.x86_64.rpm
 ```
 sudo dnf install scrot
 ```
+
+
+## Install Docker
+
+```
+sudo dnf install docker docker-compose
+sudo groupadd docker
+sudo usermod -a -G docker brad
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+
+### setup dnsmasq for docker containers
+
+```
+echo nameserver 172.17.0.1 | sudo tee -a /etc/resolv.conf
+docker run --detach \
+--restart always --name dns-gen \
+--publish 172.17.0.1:53:53/udp \
+--volume /var/run/docker.sock:/var/run/docker.sock \
+jderusse/dns-gen
+```
+selinux was messing with things so I had to do the following. In retrospect, I
+should've changed `mypol`
+
+```
+sudo grep -a docker-gen /var/log/audit/audit.log | sudo audit2allow -M mypol
+sudo semodule -i mypol.pp
+
+```
+
+## Install ruby
+
+```
+sudo dnf install ruby
+```
+
+### Install chruby
+```
+cd ~/local
+wget -O chruby-0.3.9.tar.gz https://github.com/postmodern/chruby/archive/v0.3.9.tar.gz 
+tar -xzvf chruby-0.3.9.tar.gz      
+cd chruby-0.3.9/      
+sudo make install
+sudo mv /usr/local/bin/chruby-exec /usr/local/bin/chruby
+```
+### Install ruby-install
+```
+cd ~/local
+wget -O ruby-install-0.6.0.tar.gz https://github.com/postmodern/ruby-install/archive/v0.6.0.tar.gz
+tar -xzvf ruby-install-0.6.0.tar.gz
+cd ruby-install-0.6.0/
+sudo make install
+```
+
+## Install golang and forego
+
+```
+sudo dnf install golang
+go get -u github.com/ddollar/forego
+```
+
+

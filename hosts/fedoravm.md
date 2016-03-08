@@ -15,7 +15,12 @@ sudo dnf install \
   terminus-fonts \          # bspwm    
   lsb-core-noarch \         # for atom
   libXScrnSaver \           # for slack (not sure why slack needs a screen saver lib)
-  lsb                       # google chrome
+  lsb \                     # google chrome
+  scrot \                   # screenshots
+  rxvt-unicode-256color     
+
+curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
 ## Setup up bspwm
@@ -94,7 +99,47 @@ sudo dnf install mpd mpc ncmpcp
 
 For now I am just starting mpd when I log in.
 
+## Install spf13 and oh-my-zsh
+```
+curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
 ## update
 ```
 sudo dnf update
+```
+
+## Setup lightdm and disable gdm
+
+```
+sudo dnf install lightdm lightdm-gtk
+sudo systemctl disable gdm
+sudo systemctl enable lightdm
+```
+
+## Add icon font
+```
+git clone https://aur.archlinux.org/ttf-font-icons.git
+cd ttf-font-icons
+sudo cp icons.ttf /usr/share/fonts/TTF/
+```
+
+## Switch to urxvt w/256 colors
+```
+sudo dnf install rxvt-unicode-256color
+```
+sxhkdrc will use urxvt256c as its default terminal
+
+
+## Install compton
+used rpm from [opensuse](http://software.opensuse.org/package/compton)
+specifically: http://download.opensuse.org/repositories/openSUSE:/Factory/standard/x86_64/compton-0.1.0-2.4.x86_64.rpm
+```
+sudo rpm -Uvh compton-0.1.0-2.4.x86_64.rpm
+```
+
+## install scrot
+```
+sudo dnf install scrot
 ```

@@ -145,11 +145,15 @@ super + @button{1-3}
 	bspc pointer -u
 
 # rotate windows
-super + r
-	bspc node current -R 90
+super + {_, shift +} r
+	bspc node @focused:/ -R {90, -90}
 
-super + shift + r
-	bspc desktop -R 180
+super + shift + B
+	bspc node @focused:/ -E
+
+
+super + {_, shift + } a
+    bspc node @focused:/ -F {horizontal,vertical}
 
 # restart panel
 super + ctrl + Escape

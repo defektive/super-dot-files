@@ -8,7 +8,6 @@ RUBIES+=(
 )
 
 export GOPATH="$HOME/development/go-workspace"
-export PATH="$GOPATH/bin:$PATH"
 
 # bspwm java gui fix
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -41,6 +40,6 @@ export ZSH=/home/brad/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 plugins=(git wd)
-export PATH="$SDF_PATH/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/brad/.local/bin:/home/brad/bin"
+export PATH="$GOPATH/bin:$SDF_PATH/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/brad/.local/bin:/home/brad/bin"
 source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'

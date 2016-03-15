@@ -1,9 +1,9 @@
 #! /bin/sh
-xrandr --output Virtual1 --auto --mode 2560x1600
+#xrandr --output Virtual1 --auto --mode 2560x1600
 sxhkd &
 mpd
-feh --bg-scale ~/.config/bspwm/wallpaper/shack.jpg
-compton --config ~/.config/bspwm/compton.conf -b
+#feh --bg-scale ~/.config/bspwm/wallpaper/shack.jpg
+#compton --config ~/.config/bspwm/compton.conf -b
 
 slack &
 ~/.config/bspwm/panel &

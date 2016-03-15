@@ -1,10 +1,14 @@
 URxvt*scrollBar: false
 
-!Xft*dpi:                140
+Xft*dpi:                130
 Xft*antialias:          true
 Xft*hinting:            full
 
 URxvt*geometry: 85x16
+
+URxvt*cursorUnderline:      true
+URxvt*cursorBlink:          true
+
 !URxvt*fading:        0
 !URxvt*tintColor:     #ffffff
 !URxvt*inheritPixmap:     False
@@ -23,8 +27,8 @@ URxvt*saveLines:32767
 !# dont forget to change this to your favorite browser
 !URxvt*urlLauncher: /usr/bin/chromium
 
-URxvt*font: xft:DejaVu Sans Mono:size=14
-URxvt*boldFont: xft:DejaVu Sans Mono:size=14:weight=bold
+URxvt*font: xft:DejaVu Sans Mono:size=12
+URxvt*boldFont: xft:DejaVu Sans Mono:size=12:weight=bold
 !urxvt.letterSpace: -3
 URxvt*background: #000000
 URxvt*foreground: gray

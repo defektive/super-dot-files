@@ -9,6 +9,7 @@ MY_PATH=`realpath ${BIN_DIR}/../`
 
 
 ln -s $MY_PATH/.Xresources ~/
+ln -s $MY_PATH/.xinitrc ~/
 ln -s $MY_PATH/.toprc ~/
 ln -s $MY_PATH/.gitconfig ~/
 ln -s $MY_PATH/.gitignore_global ~/

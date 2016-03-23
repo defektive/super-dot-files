@@ -155,6 +155,10 @@ super + shift + B
 super + {_, shift + } a
     bspc node @focused:/ -F {horizontal,vertical}
 
+# mpd
+alt + {Left, Right}
+    mpc {toggle, next}
+
 # restart panel
 super + ctrl + Escape
 	killall -9 panel lemonbar &&	~/.config/bspwm/panel &

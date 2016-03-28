@@ -156,7 +156,8 @@ super + {_, shift + } a
     bspc node @focused:/ -F {horizontal,vertical}
 
 # mpd
-alt + {Left, Right}
+# alt + {Left, Right}
+{XF86AudioPlay, XF86AudioNext}
     mpc {toggle, next}
 
 # restart panel

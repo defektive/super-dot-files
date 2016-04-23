@@ -10,19 +10,19 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 bspc config top_padding 0
 bspc config left_padding 0
 bspc config right_padding 0
-bspc config bottom_padding 30
+bspc config bottom_padding 0
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-bspc config top_padding $PANEL_HEIGHT
+bspc config top_padding `echo 20 + $PANEL_HEIGHT | bc`
 bspc subscribe report > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 clock -sf 'S%a %d %H:%M:%S' > "$PANEL_FIFO" &
 
 . ~/.config/bspwm/panel_colors
 
-~/.config/bspwm/panel_bar < "$PANEL_FIFO" | lemonbar -a 32 -n "$PANEL_WM_NAME" -g x$PANEL_HEIGHT -f "$PANEL_FONT" -f "$PANEL_FONT_1" -F "$COLOR_DEFAULT_FG" -B "$COLOR_DEFAULT_BG" -b | sh &
+~/.config/bspwm/panel_bar < "$PANEL_FIFO" | lemonbar -a 32 -n "$PANEL_WM_NAME" -g x$PANEL_HEIGHT -f "$PANEL_FONT" -f "$PANEL_FONT_1" -F "$COLOR_DEFAULT_FG" -B "$COLOR_DEFAULT_BG" | sh &
 
 wid=$(xdo id -a "$PANEL_WM_NAME")
 tries_left=20

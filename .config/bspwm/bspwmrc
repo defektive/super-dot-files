@@ -1,23 +1,22 @@
 #! /bin/sh
 #xrandr --output Virtual1 --auto --mode 2560x1600
-xrandr --output eDP1 --scale .7x.7
+#xrandr --output eDP1 --scale .7x.7
 sxhkd &
-#mpd
 feh --bg-scale ~/.config/bspwm/wallpaper/shack.jpg
-compton --config ~/.config/bspwm/compton.conf -b
-urxvt -e top &
+#compton --config ~/.config/bspwm/compton.conf -b
+rxvt-unicode -e top &
 
 slack &
 ~/.config/bspwm/panel &
 
-
 bspc config border_width        8
 bspc config window_gap         10
+bspc config focus_follows_pointer true
+bspc config pointer_follows_focus true
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-bspc config focus_by_distance    true
 bspc config history_aware_focus  true
 
 bspc monitor -d I II III IV V
@@ -37,10 +36,10 @@ bspc monitor -d I II III IV V
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
 
-google-chrome --profile-directory="Profile 2" --app=https://inbox.google.com &
-google-chrome --profile-directory="Profile 2" --app=https://calendar.google.com &
+google-chrome --profile-directory="Default" --app=https://inbox.google.com &
+google-chrome --profile-directory="Default" --app=https://calendar.google.com &
 google-chrome --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
-google-chrome --profile-directory="Profile 1" --app=https://play.google.com/music/listen#/now &
+#google-chrome --profile-directory="Profile 1" --app=https://play.google.com/music/listen#/now &
 
 # disable touch pad when typing
 syndaemon -i .8 -tk -d

@@ -20,7 +20,6 @@ bspc config gapless_monocle      true
 bspc config history_aware_focus  true
 
 bspc monitor -d I II III IV V
-
 #i=1
 #for monitor in $(bspc query -M); do
 #bspc monitor $monitor \
@@ -28,7 +27,6 @@ bspc monitor -d I II III IV V
 #        -d $i/{a,b,c}
 #    let i++
 #done
-
 
 #bspc rule -a Gimp desktop=^8 state=floating follow=on
 #bspc rule -a Chromium desktop=^2

@@ -8,6 +8,9 @@ RUBIES+=(
 )
 
 export GOPATH="$HOME/development/go-workspace"
+alias dc=docker-compose
+alias dcr=docker-compose run --rm
+alias mpc-yt='google-chrome "https://www.youtube.com/results?search_query=`mpc | head -n 1`"'
 
 # bspwm java gui fix
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -43,3 +46,9 @@ plugins=(git wd)
 export PATH="$GOPATH/bin:$SDF_PATH/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/brad/.local/bin:/home/brad/bin"
 source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
+
+if [ "$TTY" = "/dev/tty1" ]; then
+    echo "Initiating login sequence...";
+    eval `ssh-agent`
+    ssh-add ~/.ssh/instructure_rsa
+fi

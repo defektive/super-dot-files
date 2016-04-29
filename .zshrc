@@ -1,20 +1,4 @@
-# rubymine *needs* oracle JDK... psh it didnt need it on archlinux
-export RUBYMINE_JDK="/usr/java/latest/"
-export WEBIDE_JDK="/usr/java/latest/"
-#source /usr/local/share/chruby/chruby.sh
-#source /usr/local/share/chruby/auto.sh
-RUBIES+=(
-    "$HOME/.rubies"
-)
-
-export GOPATH="$HOME/development/go-workspace"
-alias dc=docker-compose
-alias dcr=docker-compose run --rm
-alias mpc-yt='google-chrome "https://www.youtube.com/results?search_query=`mpc | head -n 1`"'
-
-# bspwm java gui fix
-export _JAVA_AWT_WM_NONREPARENTING=1
-SDF_PATH=`dirname $(realpath ~/.zshrc)`
+source ~/.profile
 
 # key bindings
 bindkey "e[1~" beginning-of-line
@@ -43,9 +27,7 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 plugins=(git wd)
-export PATH="$GOPATH/bin:$SDF_PATH/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:$HOME/bin:$HOME/bin:/bin:/sbin"
 source $ZSH/oh-my-zsh.sh
-export EDITOR='vim'
 
 if [ "$TTY" = "/dev/tty1" ]; then
     echo "Initiating login sequence...";

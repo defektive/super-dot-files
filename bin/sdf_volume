@@ -1,0 +1,34 @@
+#! /bin/bash
+
+VOL_CMD='amixer -D pulse sset Master 5%'
+
+if [ $1 == 'up' ]; then
+  $VOL_CMD+
+elif [ $1 == 'down' ]; then
+  $VOL_CMD-
+elif [ $1 == 'toggle' ]; then
+  pactl set-sink-mute 0 toggle
+fi
+
+vol=`pactl list sinks | grep '^[[:space:]]Volume:' | \
+  head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,'`
+mute=`pactl list sinks | grep Mute | cut -d ' ' -f 2`
+echo $vol
+
+
+if [ $mute == 'no' ]; then
+  if [ $vol -lt 34 ]; then
+    icon=notification-audio-volume-low
+  elif [ $vol -lt 64 ]; then
+    icon=notification-audio-volume-medium
+  else
+    icon=notification-audio-volume-high
+  fi
+else
+  icon=notification-audio-volume-muted
+fi
+
+notify-send " " \
+    -h int:value:$vol \
+    -h string:synchronous:volume \
+    -i $icon

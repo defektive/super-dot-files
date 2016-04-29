@@ -153,12 +153,14 @@ super + shift + B
 
 
 super + {_, shift + } a
-    bspc node @focused:/ -F {horizontal,vertical}
+  bspc node @focused:/ -F {horizontal,vertical}
 
-# mpd
-# alt + {Left, Right}
-{XF86AudioPlay, XF86AudioNext}
-    mpc {toggle, next}
+# media keys
+{XF86AudioPrev, XF86AudioPlay, XF86AudioNext}
+  mpc {prev, toggle, next}
+
+{XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
+	sdf_volume {up, down, toggle}
 
 # restart panel
 super + ctrl + Escape

@@ -6,22 +6,29 @@ popd > /dev/null
 
 logfile=$SCRIPTPATH/../logs/monitor_hotplug.log
 exec > $logfile 2>&1
-#active_monitors=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1`
-#inactive_monitors=`xrandr -q | grep -P '\bdiscon' | cut -d ' ' -f 1`
-#xrandr --output HDMI1 --auto --output eDP1 --auto --left-of HDMI1
+active_displayport_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^DP'`
+inactive_monitors=`xrandr -q | grep -P '\bdiscon' | cut -d ' ' -f 1`
+for im in $inactive_monitors; do
+  echo Disabling $im
+  echo xrandr --output $im --off
+  xrandr --output $im --off
+  bspc monitor $im -r
+done
+
 #export BSPWM_SOCKET=/tmp/bspwm*-socket
 HOME=/home/CORP.INSTRUCTURE.COM/bhorrocks
 export DISPLAY=:0
 export XAUTHORITY=$HOME/.Xauthority
 
 LOCAL_MONITOR="eDP-1"
-EXTERNAL_MONITOR="DP-1"
+EXTERNAL_MONITOR=$active_displayport_monitor
 EXTERNAL_CONNECTED=`xrandr -q | grep -P '\b'$EXTERNAL_MONITOR' connected' | wc -l`
 desktops=( "VI" "VII" "VIII" "IX" "X"  )
 PATH=/usr/local/bin:/usr/bin:$PATH
 
 which bspc >> $logfile
 if [ $EXTERNAL_CONNECTED -eq 1 ]; then
+    xrandr --output $EXTERNAL_MONITOR --auto --right-of $LOCAL_MONITOR
     echo "Moving desktops to external monitor"
     for i in "${desktops[@]}"; do
         bspc desktop $i -m $EXTERNAL_MONITOR

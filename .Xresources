@@ -32,12 +32,8 @@ URxvt*boldFont: xft:DejaVu Sans Mono:size=12:weight=bold
 !urxvt.letterSpace: -3
 URxvt*background: #000000
 URxvt*foreground: gray
-
-
-urxvt*background:       rgba:0000/0000/0000/cccc
-
 URxvt.transparent:   true
-URxvt.shading:       20
+URxvt.shading:       70
 
 
 !! Yeah, I am one of those, who use these keys in Vim :-(

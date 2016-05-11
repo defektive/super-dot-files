@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	rxvt-unicode
+	urxvt
 
 # program launcher
 super + space
@@ -57,8 +57,6 @@ super + ctrl + {x,y,z}
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
-super + {_,shift + }{Left,Down,Up,Right}
-	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
 super + {p,b,comma,period}
@@ -93,8 +91,6 @@ super + {_,shift + }{1-9,0}
 # preselect the direction
 super + ctrl + {h,j,k,l}
 	bspc node -p {west,south,north,east}
-super + ctrl + {Left,Down,Up,Right}
-	bspc node -p {west,south,north,east}
 
 # preselect the ratio
 super + ctrl + {1-9}
@@ -109,40 +105,49 @@ super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 #
-# resize tiled/floating
+# move/resize
 #
 
-# expand the tiled space in the given direction
+# expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
-super + alt + {Left,Down,Up,Right}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
-# contract the tiled space in the given direction
+# contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
-	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
-super + alt + shift + {Left,Down,Up,Right}
-	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
 #super + {Left,Down,Up,Right}
-#	xdo move {-x -20,-y +20,-y -20,-x +20}
+#	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-#
-# pointer focus/move/resize
-#
 
-# focus
-~button1
-	bspc pointer -g focus
+##################
+## END https://github.com/baskerville/bspwm/blob/master/examples/sxhkdrc
+##################
+
+# SDF: focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# SDF: preselect the direction
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# SDF: expand the tiled space in the given direction
+super + alt + {Left,Down,Up,Right}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+
+# SDF: contract the tiled space in the given direction
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
 
 # start move/resize
-super + button{1-3}
-	; bspc pointer -g {move,resize_side,resize_corner}
+#super + button{1-3}
+#	; bspc pointer -g {move,resize_side,resize_corner}
 
 # end move/resize
-super + @button{1-3}
-	bspc pointer -u
+#super + @button{1-3}
+#	bspc pointer -u
 
 # rotate windows
 super + {_, shift +} r
@@ -150,7 +155,6 @@ super + {_, shift +} r
 
 super + shift + B
 	bspc node @focused:/ -E
-
 
 super + {_, shift + } a
   bspc node @focused:/ -F {horizontal,vertical}
@@ -162,6 +166,10 @@ super + {_, shift + } a
 {XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
 	sdf_volume {up, down, toggle}
 
+# monitors
+super + F1
+	monitor_hotplug
+
 # restart panel
 super + ctrl + Escape
-	killall -9 panel lemonbar &&	~/.config/bspwm/panel &
+	killall -9 panel lemonbar && ~/.config/bspwm/panel &

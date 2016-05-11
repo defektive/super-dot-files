@@ -2,7 +2,7 @@
 #xrandr --output Virtual1 --auto --mode 2560x1600
 #xrandr --output eDP1 --scale .7x.7
 sxhkd &
-feh --bg-scale ~/.config/bspwm/wallpaper/shack.jpg
+feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
 #compton --config ~/.config/bspwm/compton.conf -b
 rxvt-unicode -e top &
 
@@ -12,7 +12,8 @@ slack &
 bspc config border_width        8
 bspc config window_gap         10
 bspc config focus_follows_pointer true
-bspc config pointer_follows_focus true
+bspc config pointer_follows_focus false
+bspc config click_to_focus true
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true

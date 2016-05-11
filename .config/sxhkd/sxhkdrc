@@ -168,7 +168,10 @@ super + {_, shift + } a
 
 # monitors
 super + F1
-	monitor_hotplug
+	sdf_monitor_hotplug
+
+ctrl + alt + l
+	gnome-screensaver-command -l
 
 # restart panel
 super + ctrl + Escape

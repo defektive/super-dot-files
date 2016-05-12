@@ -168,7 +168,7 @@ super + {_, shift + } a
 
 # monitors
 super + F1
-	sdf_monitor_hotplug
+	sdf_monitors
 
 ctrl + alt + l
 	gnome-screensaver-command -l

@@ -1,26 +1,49 @@
 #! /bin/sh
+
+pushd `dirname $0` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+
+LOG_PATH=$SCRIPTPATH/../../logs
+logfile=$LOG_PATH/bspwm.log
+exec > $logfile 2>&1
+
+echo SDF Path: $SDF_PATH
+
+echo Starting BSPWM
+eval `dbus-launch`
+#urxvt -e top &
 #xrandr --output Virtual1 --auto --mode 2560x1600
 #xrandr --output eDP1 --scale .7x.7
-sxhkd &
-feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
+echo Starting sxhkd
+sxhkd >> $LOG_PATH/sxhkd.log &
+
+~/.feh-bg || feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
+
 #compton --config ~/.config/bspwm/compton.conf -b
-rxvt-unicode -e top &
 
 slack &
-~/.config/bspwm/panel &
+#~/.config/bspwm/panel &
+echo Configuring bspwm
 
+bspc config focused_border_color "#666666"
+bspc config presel_feedback_color "#666666"
 bspc config border_width        8
 bspc config window_gap         10
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus false
 bspc config click_to_focus true
-
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
-bspc config history_aware_focus  true
+bspc config remove_disabled_monitors      true
+bspc config remove_unplugged_monitors      true
+bspc config external_rules_command "$(which sdf_bspwm_rules)"
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+echo configuration complete
+bspc monitor -d {,,,,,,,}
+
+# bspc monitor -d I II III IV V VI VII VIII IX X
 #i=1
 #for monitor in $(bspc query -M); do
 #bspc monitor $monitor \
@@ -28,17 +51,25 @@ bspc monitor -d I II III IV V VI VII VIII IX X
 #        -d $i/{a,b,c}
 #    let i++
 #done
-
 #bspc rule -a Gimp desktop=^8 state=floating follow=on
 #bspc rule -a Chromium desktop=^2
 #bspc rule -a mplayer2 state=floating
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
 
-google-chrome --profile-directory="Default" --app=https://inbox.google.com &
-google-chrome --profile-directory="Default" --app=https://calendar.google.com &
-google-chrome --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
+bspc rule -a Slack desktop='^1'
+bspc rule -a google-chrome desktop='^3'
+bspc rule -a google-chrome:inbox.google.com desktop='^1'
+bspc rule -a google-chrome:calendar.google.com desktop='^1'
+bspc rule -a google-chrome:trello.com__b_p0smG8Ny_for desktop='^2'
+
+#google-chrome --profile-directory="Default" --app=https://inbox.google.com &
+#google-chrome --profile-directory="Default" --app=https://calendar.google.com &
+#google-chrome --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
 #google-chrome --profile-directory="Profile 1" --app=https://play.google.com/music/listen#/now &
 
 # disable touch pad when typing
-syndaemon -i .8 -tk -d
+#syndaemon -i .8 -tk -d
+bspc desktop -f '^4'
+
+echo EOF bspwmrc

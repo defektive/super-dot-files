@@ -6,6 +6,19 @@ popd > /dev/null
 
 logfile=$SCRIPTPATH/../logs/monitor_hotplug.log
 exec > $logfile 2>&1
+
+#export BSPWM_SOCKET=/tmp/bspwm*-socket
+HOME=/home/CORP.INSTRUCTURE.COM/bhorrocks
+export DISPLAY=:0
+export XAUTHORITY=$HOME/.Xauthority
+desktops=( "VI" "VII" "VIII" "IX" "X"  )
+PATH=/usr/local/bin:/usr/bin:$PATH
+
+# this seems to make it more reliable
+# i think its due to the event firing before
+# the outputs show up in xrandr 
+sleep 0.5
+
 active_displayport_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^DP'`
 inactive_monitors=`xrandr -q | grep -P '\bdiscon' | cut -d ' ' -f 1`
 for im in $inactive_monitors; do
@@ -15,31 +28,31 @@ for im in $inactive_monitors; do
   bspc monitor $im -r
 done
 
-#export BSPWM_SOCKET=/tmp/bspwm*-socket
-HOME=/home/CORP.INSTRUCTURE.COM/bhorrocks
-export DISPLAY=:0
-export XAUTHORITY=$HOME/.Xauthority
+LOCAL_MONITOR="eDP1"
+EXTERNAL_CONNECTED=`xrandr -q | grep -P '\b'$active_displayport_monitor' connected' | wc -l`
 
-LOCAL_MONITOR="eDP-1"
-EXTERNAL_MONITOR=$active_displayport_monitor
-EXTERNAL_CONNECTED=`xrandr -q | grep -P '\b'$EXTERNAL_MONITOR' connected' | wc -l`
-desktops=( "VI" "VII" "VIII" "IX" "X"  )
-PATH=/usr/local/bin:/usr/bin:$PATH
-
-which bspc >> $logfile
-if [ $EXTERNAL_CONNECTED -eq 1 ]; then
-    xrandr --output $EXTERNAL_MONITOR --auto --right-of $LOCAL_MONITOR
-    echo "Moving desktops to external monitor"
-    for i in "${desktops[@]}"; do
-        bspc desktop $i -m $EXTERNAL_MONITOR
-    done
+echo "$active_displayport_monitor connected: $EXTERNAL_CONNECTED"
+echo $LOCAL_MONITOR
+if [ $active_displayport_monitor != "" ]; then
+  echo "Enabling external monitor: $active_displayport_monitor. Disabling: $LOCAL_MONITOR"
+    xrandr --output $active_displayport_monitor --auto --output $LOCAL_MONITOR --off
+    # xrandr --output $EXTERNAL_MONITOR --auto --right-of $LOCAL_MONITOR
+    # echo "Moving desktops to external monitor"
+    # for i in "${desktops[@]}"; do
+    #     bspc desktop $i -m $EXTERNAL_MONITOR
+    # done
 
     # remove auto added desktop
     bspc desktop Desktop -r
 else
-    echo "Moving desktops to local monitor"
-    for i in "${desktops[@]}"; do
-        bspc desktop $i -m $LOCAL_MONITOR
-    done
-    bspc monitor DP-1 -r
+  echo "Enabling local monitor: $LOCAL_MONITOR, disabling: $active_displayport_monitor "
+  xrandr --output $LOCAL_MONITOR --auto --output $active_displayport_monitor --off
+
+    # echo "Moving desktops to local monitor"
+    # for i in "${desktops[@]}"; do
+    #     bspc desktop $i -m $LOCAL_MONITOR
+    # done
+    # bspc monitor DP1 -r
 fi
+
+bspc wm --adopt-orphans

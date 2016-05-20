@@ -20,7 +20,7 @@ super + Escape
 
 # quit bspwm
 super + alt + Escape
-	bspc quit
+	bspc quit; killall panel panel_bar
 
 # close and kill
 super + {_,shift + }w
@@ -165,7 +165,7 @@ super + {_, shift + } a
 
 # media keys
 {XF86AudioPrev, XF86AudioPlay, XF86AudioNext}
-  mpc {prev, toggle, next}
+  mpc {prev, toggle, next} > /dev/null
 
 {XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
 	sdf_volume {up, down, toggle}
@@ -216,10 +216,14 @@ super + ctrl + F6
 super + ctrl + F12
 	atom $SDF_PATH &; bspc desktop -f '^8'
 
+## reset desktops
+super + ctrl + F11
+	bspc monitor -d \{,,,,,,,\}
+
 # Screen lock
 ctrl + alt + l
 	gnome-screensaver-command -l || slock
 
 # restart panel
 super + ctrl + Escape
-	killall -9 panel lemonbar; ~/.config/bspwm/panel &
+	killall -9 panel panel_bar; ~/.config/bspwm/panel &

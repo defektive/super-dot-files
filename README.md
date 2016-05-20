@@ -8,7 +8,7 @@ Currently using fedora with the following
 - lightdm
 - mpd
 
-![screen!](screenshots/2016-03-07-233122_2560x1600_scrot.png)
+![screen!](screenshots/Fri_May_20_16:04:03_2016.jpg)
 
 
 ## Unicode Icons!!

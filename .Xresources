@@ -27,8 +27,8 @@ URxvt*saveLines:32767
 !# dont forget to change this to your favorite browser
 !URxvt*urlLauncher: /usr/bin/chromium
 
-URxvt*font: xft:DejaVu Sans Mono:size=12
-URxvt*boldFont: xft:DejaVu Sans Mono:size=12:weight=bold
+URxvt*font: xft:DejaVu Sans Mono:size=12,xft:Icons:size=14
+!URxvt*boldFont: xft:DejaVu Sans Mono:size=12:weight=bold
 !urxvt.letterSpace: -3
 URxvt*background: #000000
 URxvt*foreground: gray

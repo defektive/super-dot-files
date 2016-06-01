@@ -1,0 +1,152 @@
+#!/bin/bash
+# Default acpi script that takes an entry for all actions
+
+pushd `dirname $(realpath $0)` > /dev/null
+SCRIPTPATH=`pwd`
+popd > /dev/null
+
+
+
+
+getXuser() {
+    Xtty=$(</sys/class/tty/tty0/active)
+    Xpid=$(pgrep -t $Xtty -f Xorg)
+
+    Xenv+=("$(egrep -aoz 'USER=.+' /proc/$Xpid/environ)")
+    Xenv+=("$(egrep -aoz 'XAUTHORITY=.+' /proc/$Xpid/environ)")
+    Xenv+=("$(egrep -aoz ':[0-9](.[0-9])?' /proc/$Xpid/cmdline)")
+
+    Xenv=(${Xenv[@]#*=})
+
+    (( ${#Xenv[@]} )) && {
+        export XUSER=${Xenv[0]} XAUTHORITY=${Xenv[1]} DISPLAY=${Xenv[2]}
+        su -c "$*" "$XUSER"
+    }
+}
+
+
+
+# logger "acpi $1 $2 $3 $SCRIPTPATH/"
+
+case "$1" in
+    button/power)
+        case "$2" in
+            PBTN|PWRF)
+                logger 'PowerButton pressed'
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    button/sleep)
+        case "$2" in
+            SLPB|SBTN)
+                logger 'SleepButton pressed'
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    ac_adapter)
+        case "$2" in
+            AC|ACAD|ADP0)
+                case "$4" in
+                    00000000)
+                        logger 'AC unpluged'
+                        ;;
+                    00000001)
+                        logger 'AC pluged'
+                        ;;
+                esac
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    battery)
+        case "$2" in
+            BAT0)
+                case "$4" in
+                    00000000)
+                        logger 'Battery online'
+                        ;;
+                    00000001)
+                        logger 'Battery offline'
+                        ;;
+                esac
+                ;;
+            CPU0)
+                ;;
+            *)  logger "ACPI action undefined: $2" ;;
+        esac
+        ;;
+    button/lid)
+        case "$3" in
+            close)
+                logger 'LID closed'
+                ;;
+            open)
+                logger 'LID opened'
+                ;;
+            *)
+                logger "ACPI action undefined: $3"
+                ;;
+        esac
+        ;;
+
+    'cd/next'|'cd/prev'|'cd/play')
+        case "$2" in
+            CDNEXT)
+                logger 'Next Track pressed'
+                mpc next
+                ;;
+            CDPREV)
+                logger 'Prev Track pressed'
+                mpc prev
+                ;;
+            CDPLAY)
+                logger 'Play Track pressed'
+                mpc toggle
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    # button/volumeup|button/volumedown|button/mute)
+    #     case "$2" in
+    #         VOLDN)
+    #             getXuser $SCRIPTPATH/sdf_volume down
+    #             ;;
+    #         VOLUP)
+    #             $SCRIPTPATH/sdf_volume up
+    #             ;;
+    #         MUTE)
+    #             $SCRIPTPATH/sdf_volume toggle
+    #             ;;
+    #         *)
+    #             logger "ACPI action undefined: $2"
+    #             ;;
+    #     esac
+    #     ;;
+    cd/play)
+        case "$2" in
+            CDPLAY)
+                logger 'Prev Track pressed'
+                mpc toggle
+                ;;
+            *)
+                logger "ACPI action undefined: $2"
+                ;;
+        esac
+        ;;
+    *)
+        logger "ACPI group/action undefined: $1 / $2"
+        ;;
+esac
+
+
+# vim:set ts=4 sw=4 ft=sh et:

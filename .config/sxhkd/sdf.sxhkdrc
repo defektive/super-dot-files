@@ -1,0 +1,53 @@
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+{XF86AudioRaiseVolume, XF86AudioLowerVolume, XF86AudioMute}
+	sdf_volume {up, down, toggle}
+
+# auto detect prefererred monitor layout
+super + {F3, F4}
+	sdf_monitors {_, auto}
+
+# internal/external monitor monitor
+super + { F1, F2}
+	sdf_monitors {internal, external}
+
+# App shortcuts
+
+## Slack
+super + ctrl + F1
+	slack &
+
+## Work Inbox
+super + ctrl + F2
+	 google-chrome-stable --profile-directory="Default" --app=https://inbox.google.com &
+
+## Work Calendar
+super + ctrl + F3
+	 google-chrome-stable --profile-directory="Default" --app=https://calendar.google.com &
+
+## Work Calendar
+super + ctrl + F4
+	 google-chrome-stable --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
+
+## Work chrome
+super + ctrl + F5
+	 google-chrome-stable --profile-directory="Default" &; bspc desktop -f '^3'
+
+## My chrome
+super + ctrl + F6
+	 google-chrome-stable --profile-directory="Profile 1" &; bspc desktop -f '^3'
+
+## Edit SDF Config
+super + ctrl + F12
+	atom $SDF_PATH &; bspc desktop -f '^8'
+
+
+# Screen lock
+ctrl + alt + l
+	gnome-screensaver-command -l || slock
+
+# restart panel
+super + ctrl + Escape
+	killall -9 panel panel_bar; ~/.config/bspwm/panel &

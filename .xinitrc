@@ -1,6 +1,18 @@
 xrdb -merge $HOME/.Xresources
+xrandr --setprovideroutputsource modesetting NVIDIA-0
 
-#xrandr --output eDP1 --off --output DP1 --auto
+sdf_monitors internal
+eval `dbus-launch`
 
-#exec xclock
-exec bspwm
+LOG_PATH=~/.local/share/sdf/logs
+mkdir -p $LOG_PATH
+
+echo > $LOG_PATH/${SDF_STARTX_CMD}.sxhkd.log
+sxhkd -c ~/.config/sxhkd/${SDF_STARTX_CMD}/* &
+
+#-r $LOG_PATH/${SDF_STARTX_CMD}.sxhkd.log &
+#sxhkd -c ~/.config/sxhkd/sdf.sxhkdrc -r $LOG_PATH/${SDF_STARTX_CMD}.sxhkd.log &
+
+~/.feh-bg || feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
+
+exec $SDF_STARTX_CMD

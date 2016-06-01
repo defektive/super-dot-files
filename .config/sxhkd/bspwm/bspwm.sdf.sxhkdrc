@@ -1,0 +1,65 @@
+
+# program launcher
+super + space
+	sdf_dmenu_run
+
+# quit bspwm
+super + alt + Escape
+	bspc quit; killall panel panel_bar
+
+# focus the next/previous desktop
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+
+##################
+## END overrides
+##################
+
+# focus the next/previous desktop
+super + shift + bracket{left,right}
+	bspc monitor -f {prev,next}
+
+# SDF: focus the node in the given direction
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# SDF: preselect the direction
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# SDF: expand the tiled space in the given direction
+super + alt + {Left,Down,Up,Right}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+
+# SDF: contract the tiled space in the given direction
+super + alt + shift + {Left,Down,Up,Right}
+	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
+
+# start move/resize
+#super + button{1-3}
+#	; bspc pointer -g {move,resize_side,resize_corner}
+
+# end move/resize
+#super + @button{1-3}
+#	bspc pointer -u
+
+# rotate windows
+super + {_, shift +} r
+	bspc node @focused:/ -R {90, -90}
+
+super + shift + B
+	bspc node @focused:/ -E
+
+super + {_, shift + } a
+  bspc node @focused:/ -F {horizontal,vertical}
+
+## reset desktops
+super + ctrl + F11
+	bspc monitor -d \{,,,,,,,\}
+
+
+
+# focus the next/previous node on this desktop
+super + {_,shift + } slash
+	bspc node @focused:/ -C {forward,backward}

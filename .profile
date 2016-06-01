@@ -25,13 +25,14 @@ export EDITOR='vim'
 
 # Super Dot Files
 export SDF_PATH=`dirname $(realpath ~/.profile)`
-export GOPATH="$HOME/development/go-workspace"
+export GOPATH="$HOME/development/"
 export PATH="$GOPATH/bin:$SDF_PATH/bin:$HOME/bin:$HOME/.local/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 export PATH=/home/CORP.INSTRUCTURE.COM/bhorrocks/.gem/ruby/2.3.0/bin:$PATH
 
 alias dc='docker-compose'
 alias dcr='docker-compose run --rm'
+alias ssc='sudo systemctl'
 alias mpc-yt='google-chrome "https://www.youtube.com/results?search_query=`mpc | head -n 1`"'
 
 # rubymine *needs* oracle JDK... psh it didnt need it on archlinux
@@ -45,3 +46,4 @@ RUBIES+=(
 
 # bspwm java gui fix
 export _JAVA_AWT_WM_NONREPARENTING=1
+setopt extended_glob

@@ -29,8 +29,26 @@ ZSH_THEME="robbyrussell"
 plugins=(git wd)
 source $ZSH/oh-my-zsh.sh
 
+
+if [ "$TTY" = "/dev/tty1" ]; then
+  SDF_STARTX_CMD='bspwm'
+fi
+
+if [ "$TTY" = "/dev/tty2" ]; then
+  SDF_STARTX_CMD='i3'
+fi
+
+if [ "$TTY" = "/dev/tty3" ]; then
+  SDF_STARTX_CMD='slack'
+fi
+
+export SDF_STARTX_CMD
 if [ "$TTY" = "/dev/tty1" ]; then
     echo "Initiating login sequence...";
     eval `ssh-agent`
     ssh-add ~/.ssh/instructure_rsa
+
+    startx 2>&1 > .$SDF_STARTX_CMD.startx.log
+    sleep 2
+    exit;
 fi

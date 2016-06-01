@@ -48,15 +48,14 @@ load_avg() {
 
 mpd() {
   status=`mpc | grep -oP '^\[[^\]]*\]'`
-  MPD_COLOR=$INACTIVE_FG
+  MPD_COLOR=$SECONDARY_INACTIVE_FG
   if [ "$status" = '[playing]' ] ; then
-    MPD_COLOR=$SECONDARY_FG
+    MPD_COLOR=$SECONDARY_ACTIVE_FG
   fi
 
   # brighter means its playing
 	echo "%{F$MPD_COLOR} $(mpc current)%{F-}"
 }
-
 
 while read -r line ; do
 	case $line in
@@ -65,7 +64,7 @@ while read -r line ; do
 		#     mpd="%{F$CYAN2_COLOR}$(printf '%b' "\uf2b6") $STATUS%{F-}"
 		S*)
 			# clock output
-			sys="%{F$SECONDARY_FG} ${line#?} %{B-}%{F-}"
+			sys="%{F$SECONDARY_ACTIVE_FG} ${line#?} %{B-}%{F-}"
 			;;
 		T*)
 			# xtitle output
@@ -85,56 +84,48 @@ while read -r line ; do
 						case $item in
 							m*)
 								# monitor
-								FG=$COLOR_MONITOR_FG
-								BG=$COLOR_MONITOR_BG
+                FG=$PRIMARY_INACTIVE_FG
 								;;
 							M*)
 								# focused monitor
-								FG=$COLOR_FOCUSED_MONITOR_FG
-								BG=$COLOR_FOCUSED_MONITOR_BG
+                FG=$PRIMARY_ACTIVE_FG
 								;;
 						esac
-						wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
+						wm="${wm}%{F${FG}}%{A:bspc monitor -f ${name}:} ${name}  %{A}%{F-}"
 						;;
 					[fFoOuU]*)
 						case $item in
 							f*)
 								# free desktop
-								FG=$COLOR_FREE_FG
-								BG=$COLOR_FREE_BG
+								FG=$SECONDARY_INACTIVE_FG
 								;;
 							F*)
 								# focused free desktop
-								FG=$COLOR_FOCUSED_FREE_FG
-								BG=$COLOR_FOCUSED_FREE_BG
+								FG=$SECONDARY_ACTIVE_FG
 								;;
 							o*)
 								# occupied desktop
-								FG=$COLOR_OCCUPIED_FG
-								BG=$COLOR_OCCUPIED_BG
+								FG=$PRIMARY_INACTIVE_FG
 								;;
 							O*)
 								# focused occupied desktop
-								FG=$COLOR_FOCUSED_OCCUPIED_FG
-								BG=$COLOR_FOCUSED_OCCUPIED_BG
+								FG=$SECONDARY_ACTIVE_FG
 								;;
 							u*)
 								# urgent desktop
 								FG=$COLOR_URGENT_FG
-								BG=$COLOR_URGENT_BG
 								;;
 							U*)
 								# focused urgent desktop
 								FG=$COLOR_FOCUSED_URGENT_FG
-								BG=$COLOR_FOCUSED_URGENT_BG
 								;;
 						esac
 						# wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}  $(printf '%b' "\uf34f")  %{A}%{B-}%{F-}"
-						wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}  ${name}  %{A}%{B-}%{F-}"
+						wm="${wm}%{F${FG}}%{A:bspc desktop -f ${name}:}  ${name}  %{A}%{F-}"
 					# [LTG]*)
 					;;
 					# 	# layout, state and flags
-					# 	;;
+					# 	;;qarpl
 					# 	wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
 				esac
 				shift

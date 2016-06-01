@@ -12,14 +12,10 @@ exec > $logfile 2>&1
 
 echo Starting BSPWM
 echo SDF Path: $SDF_PATH
-sdf_monitors
+
+#xrandr --output DP1-8 --auto --output eDP1 --off
 
 # this is needed for notifications
-eval `dbus-launch`
-echo Starting sxhkd
-
-sxhkd >> $LOG_PATH/sxhkd.log &
-~/.feh-bg || feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
 
 #compton --config ~/.config/bspwm/compton.conf -b
 echo Configuring bspwm

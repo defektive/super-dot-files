@@ -1,0 +1,3 @@
+#! /bin/sh
+
+dmenu_run -y 1000 -x 1000 -w 2000 -fn xft:Inconsolata:Medium:size=14 -h 100 -l 4

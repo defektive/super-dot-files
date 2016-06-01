@@ -1,6 +1,6 @@
 #! /bin/bash
 
-VOL_CMD=' amixer -D pulse set Master Playback'
+VOL_CMD='amixer -D pulse set Master Playback'
 
 if [ $1 == 'up' ]; then
   CMD=$VOL_CMD' 5%+'

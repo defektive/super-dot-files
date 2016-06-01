@@ -6,6 +6,7 @@
     email = sirbradleyd@gmail.com
 
 [alias]
+    open = "!hub browse $(pwd | sed 's/.\\+github.com\\///')"
     st = status
     ci = commit
     br = branch

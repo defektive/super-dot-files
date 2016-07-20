@@ -50,20 +50,12 @@ case "$1" in
         esac
         ;;
     ac_adapter)
-        case "$2" in
-            AC|ACAD|ADP0)
-                case "$4" in
-                    00000000)
-                        logger 'AC unpluged'
-                        ;;
-                    00000001)
-                        logger 'AC pluged'
-                        ;;
-                esac
-                ;;
-            *)
-                logger "ACPI action undefined: $2"
-                ;;
+        if [ "`cat /sys/class/power_supply/AC/online`" == "1" ]; then
+          $SCRIPTPATH/sdf_backlight
+        else
+          $SCRIPTPATH/sdf_backlight low
+        fi
+
         esac
         ;;
     battery)
@@ -80,7 +72,7 @@ case "$1" in
                 ;;
             CPU0)
                 ;;
-            *)  logger "ACPI action undefined: $2" ;;
+            *)  logger "ACPI action undefined: $1 $2 $3 $4" ;;
         esac
         ;;
     button/lid)
@@ -142,6 +134,10 @@ case "$1" in
                 logger "ACPI action undefined: $2"
                 ;;
         esac
+        ;;
+    processor)
+
+        /dev/null
         ;;
     *)
         logger "ACPI group/action undefined: $1 / $2"

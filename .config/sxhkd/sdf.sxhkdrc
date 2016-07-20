@@ -41,7 +41,7 @@ super + ctrl + F6
 
 ## Edit SDF Config
 super + ctrl + F12
-	atom $SDF_PATH &; bspc desktop -f '^8'
+	atom $SDF_PATH &;
 
 
 # Screen lock

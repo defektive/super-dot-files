@@ -53,25 +53,12 @@ elif [ "$action" == "auto" ] ; then
   # auto magic mode
   if [ $external_monitor_connected -eq 1 ]; then
       xrandr --output $internal_monitor --mode 3840x2160 --pos 0x0 --output $active_displayport_monitor --mode 3840x2160 --pos 3840x0 --rotate normal -r 29.98
-      echo "Moving desktops to external monitor"
-      for i in "${desktops[@]}"; do
-          bspc desktop $i -m $active_displayport_monitor
-      done
-
-      bspc desktop $desktops[@] -f
-      # remove auto added desktop
-      bspc desktop Desktop -r
   else
-      # echo "Enabling local monitor: $internal_monitor, disabling: $active_displayport_monitor "
-      xrandr --output $internal_monitor --auto --output $active_displayport_monitor --off
+    for i in $inactive_monitors; do
+      disable_command="$disable_command --output $i --off"
+    done
 
-      echo "Moving desktops to local monitor"
-      for i in "${desktops[@]}"; do
-          bspc desktop $i -m $internal_monitor
-      done
-
-      # i think this is automatic now
-      # bspc monitor DP1 -r
+      # xrandr --output $internal_monitor --off
+      xrandr --output $internal_monitor --auto $disable_command
   fi
 fi
-bspc wm --adopt-orphans

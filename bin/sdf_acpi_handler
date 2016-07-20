@@ -56,7 +56,6 @@ case "$1" in
           $SCRIPTPATH/sdf_backlight low
         fi
 
-        esac
         ;;
     battery)
         case "$2" in

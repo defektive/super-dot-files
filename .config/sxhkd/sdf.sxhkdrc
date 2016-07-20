@@ -21,23 +21,35 @@ super + ctrl + F1
 
 ## Work Inbox
 super + ctrl + F2
-	 google-chrome-stable --profile-directory="Default" --app=https://inbox.google.com &
+	 primusrun google-chrome-stable --profile-directory="Default" --app=https://inbox.google.com &
 
 ## Work Calendar
 super + ctrl + F3
-	 google-chrome-stable --profile-directory="Default" --app=https://calendar.google.com &
+	 primusrun google-chrome-stable --profile-directory="Default" --app=https://calendar.google.com &
 
 ## Work Calendar
 super + ctrl + F4
-	 google-chrome-stable --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
+	 primusrun google-chrome-stable --profile-directory="Profile 1" --app=https://trello.com/b/p0smG8Ny/for &
 
 ## Work chrome
 super + ctrl + F5
-	 google-chrome-stable --profile-directory="Default" &; bspc desktop -f '^3'
+	 primusrun google-chrome-stable --profile-directory="Default" &;
 
 ## My chrome
 super + ctrl + F6
-	 google-chrome-stable --profile-directory="Profile 1" &; bspc desktop -f '^3'
+	 primusrun google-chrome-stable --profile-directory="Profile 1" &;
+
+## My chrome
+super + ctrl + F7
+	 primusrun google-chrome-stable --profile-directory="Profile 1" --app=https://netflix.com &
+
+## My Bluejeans
+super + ctrl + alt + 1
+	primusrun google-chrome-stable --profile-directory="Default" --app="https://bluejeans.com/1260595370/?src=meet_now" &
+
+## My Bluejeans
+super + ctrl + alt + 2
+	primusrun google-chrome-stable --profile-directory="Default" --app="https://bluejeans.com/8191170574/" &
 
 ## Edit SDF Config
 super + ctrl + F12

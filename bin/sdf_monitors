@@ -51,8 +51,6 @@ elif [ "$action" == "auto" ] ; then
     for i in $inactive_monitors; do
       disable_command="$disable_command --output $i --off"
     done
-
-      # xrandr --output $internal_monitor --off
       xrandr --output $internal_monitor --auto $disable_command
   fi
 fi

@@ -15,4 +15,5 @@ sxhkd -c ~/.config/sxhkd/${SDF_STARTX_CMD}/* &
 
 ~/.feh-bg || feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
 
+syndaemon -k -i 0.5 -d
 exec $SDF_STARTX_CMD

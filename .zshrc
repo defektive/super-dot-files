@@ -28,7 +28,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 plugins=(git wd)
 source $ZSH/oh-my-zsh.sh
-
+eval `ssh-agent`
 
 if [ "$TTY" = "/dev/tty1" ]; then
   SDF_STARTX_CMD='bspwm'
@@ -43,12 +43,4 @@ if [ "$TTY" = "/dev/tty3" ]; then
 fi
 
 export SDF_STARTX_CMD
-if [ "$TTY" = "/dev/tty1" ]; then
-    echo "Initiating login sequence...";
-    eval `ssh-agent`
-    ssh-add ~/.ssh/instructure_rsa
-
-    startx 2>&1 > .$SDF_STARTX_CMD.startx.log
-    sleep 2
-    exit;
-fi
+alias startx='startx 2>&1 > .$SDF_STARTX_CMD.startx.log; exit'

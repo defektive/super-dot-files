@@ -26,7 +26,7 @@ getXuser() {
 
 
 
-# logger "acpi $1 $2 $3 $SCRIPTPATH/"
+# logger "ACPI::LOG $1 $2 $3"
 
 case "$1" in
     button/power)

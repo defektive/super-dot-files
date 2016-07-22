@@ -16,4 +16,5 @@ sxhkd -c ~/.config/sxhkd/${SDF_STARTX_CMD}/* &
 ~/.feh-bg || feh --bg-tile ~/.config/bspwm/wallpaper/repeatable/random_grey_variations/random_grey_variations_@2X.png
 
 syndaemon -k -i 0.5 -d
+compton --config ~/.config/i3/compton.conf &
 exec $SDF_STARTX_CMD

@@ -1,7 +1,0 @@
-# Move workspace to different monitor
-super + ctrl + alt + {Left, Right, Up, Down}
-	i3-msg move workspace to output {left, right, up, down}
-
-# focus the next/previous desktop
-super + bracket{left,right}
-  i3-msg workspace {prev, next}

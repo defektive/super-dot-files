@@ -1,1 +1,7 @@
 logs/
+
+.vagrant
+home/.config/personal/*
+
+!home/.config/personal/README.md
+!home/.config/personal/*.example

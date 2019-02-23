@@ -1,9 +1,10 @@
 #! /bin/bash
 re='^[0-9]+$'
+
 if [ "$1" == 'low' ]; then
-  xrandr --output eDP-1 --brightness .3
+  xrandr --output $SDF_BUILT_IN_DISPLAY --brightness .3
 elif [ "$1" == 'med' ]; then
-  xrandr --output eDP-1 --brightness .6
+  xrandr --output $SDF_BUILT_IN_DISPLAY --brightness .6
 elif [ "$1" == 'up' ]; then
   echo 'going up'
   echo "`cat /sys/class/backlight/intel_backlight/brightness` + 100" | bc | sudo tee /sys/class/backlight/intel_backlight/brightness
@@ -13,5 +14,5 @@ elif [ "$1" == 'down' ]; then
 elif [[ $1 =~ $re ]] ; then
   echo "$1" | sudo tee /sys/class/backlight/intel_backlight/brightness
 else
-  xrandr --output eDP-1 --brightness 1
+  xrandr --output $SDF_BUILT_IN_DISPLAY --brightness 1
 fi

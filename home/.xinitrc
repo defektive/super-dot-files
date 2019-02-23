@@ -1,6 +1,10 @@
-sxhkd -c ~/.config/sxhkd/$SDF_STARTX_CMD/*.sxhkdrc &
-unclutter &
+systemctl --user import-environment DISPLAY &
+compton &
+feh --randomize --bg-tile $HOME/.config/wallpaper/repeatable/dark/* &
+
+sxhkd -c ~/.config/sxhkd/default/* &
+polybar -r -c ~/.config/polybar/config qhd &
+
 /usr/bin/xautolock -time 5 -locker "/usr/bin/i3lock -c ff0000" &
-feh --randomize --bg-tile $SDF_PATH/home/.config/wallpaper/repeatable/dark/*
-systemctl --user import-environment DISPLAY
-exec $SDF_STARTX_CMD
+
+exec bspwm

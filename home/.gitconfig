@@ -3,7 +3,7 @@
 
 [user]
     name = defektive
-    email = defektive@noreply.github.com
+    email = defektive@users.noreply.github.com
 
 [alias]
     open = "!hub browse $(pwd | sed 's/.\\+github.com\\///')"

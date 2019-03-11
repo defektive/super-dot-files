@@ -5,11 +5,11 @@ all=( 1 2 3 4 5 6 )
 desktops=( 4 5 6 )
 
 internal_monitor="$SDF_BUILT_IN_DISPLAY"
-active_external_monitor=`xrandr --listactivemonitors | tail -n +2 | cut -d ' ' -f 6 | grep -v eDP-1`
+active_external_monitor=`xrandr --listactivemonitors | tail -n +2 | cut -d ' ' -f 6 | grep -v $SDF_BUILT_IN_DISPLAY`
 action="$1"
 
 if [ "$action" == "" ]; then
-  if [ ! -z $active_external_monitor ]; then
+  if [ ! -z "$active_external_monitor" ]; then
     action="external"
   else
     action='internal'

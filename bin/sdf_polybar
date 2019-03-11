@@ -3,8 +3,11 @@
 sdf_bspwm_desktops
 killall polybar
 
-for monitor in `xrandr --listactivemonitors | tail -n +2 | cut -d ' ' -f 6`; do
-  echo $monitor
-  polybar -r -c ~/.config/polybar/config $monitor & #2>/dev/null 1>/dev/null &
-done
+for monitor_info in `xrandr --listactivemonitors | tail -n +2 | awk '{print $4 "-" $3}'`; do
+  monitor=$(echo $monitor_info | cut -d '-' -f 1)
+  mode=$(echo $monitor_info | cut -d '-' -f 2 | cut -d '/' -f 1)
 
+  echo $monitor
+  echo $mode
+  polybar -l error -r -c ~/.config/polybar/config $monitor-$mode & #2>/dev/null 1>/dev/null &
+done

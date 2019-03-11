@@ -26,3 +26,12 @@ This uses vagrant, but everything should work on a clean install of Arch
 ```
 vagrant up
 ```
+
+
+## Making things work better
+
+### Low battery warnings and hibernate
+
+- Add `resume` to `HOOKS` after `filesystems` before `fsck`
+- Add `resume=/dev/mapper/[LVM SWAP NAME]` to kernel options in `/boot/loaders/*.conf`
+- run `sudo mkinitcpio -p linux`

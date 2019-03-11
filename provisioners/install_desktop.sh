@@ -44,6 +44,8 @@ yay --noconfirm -S \
   xautolock \
   i3lock \
   termite \
-  slack-desktop
+  slack-desktop \
+  acpi \
+  pulseaudio-bluetooth  
 
 $SOURCE_DIR/provisioners/configure_desktop.sh

@@ -15,7 +15,7 @@ bspc config gapless_monocle      false
 bspc config remove_disabled_monitors true
 bspc config remove_unplugged_monitors true
 
-bspc config top_padding 25
+bspc config top_padding 40
 echo configuration complete
 
 # create desktops

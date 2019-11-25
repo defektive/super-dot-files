@@ -22,6 +22,9 @@ options() {
         -s|--select)
         USE_SELECTION="1"
         ;;
+        -m|--mute)
+        NO_SOUND="1"
+        ;;
         -g|--gif)
         CONVERT_TO_GIF="1"
         ;;
@@ -48,7 +51,7 @@ usage ()
 Starts a screen capture.
 
   Usage:
-    screen_record [-s -g] -o outfile
+    screen_record [-s -m -g] -o outfile
 __EOF__
 }
 
@@ -102,6 +105,10 @@ EXTRA_OPTIONS="-o $OUTFILE"
 
 if [ ! -z "$CONVERT_TO_GIF" ]; then
   EXTRA_OPTIONS="$EXTRA_OPTIONS --fps 10"
+fi
+
+if [ ! -z "$NO_SOUND" ]; then
+  EXTRA_OPTIONS="$EXTRA_OPTIONS --no-sound"
 fi
 
 if [ ! -z "$USE_SELECTION" ]; then

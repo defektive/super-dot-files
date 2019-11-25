@@ -35,6 +35,8 @@ font-1 = unifont:fontformat=truetype:size=18:antialias=false
 font-2 = Icons:size=16
 font-3 = Noto Color Emoji:size=18
 modules-left = bspwm i3
+modules-center = mpd
+modules-right = memory cpu wlan eth battery date
 override-redirect = true
 wm-restack = bspwm
 

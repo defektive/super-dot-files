@@ -27,7 +27,7 @@ echo "  connected: $hdmi_monitor_connected"
 action="$1"
 
 if [ "$action" == "" ]; then
-  action="auto"
+  action="external"
 fi
 
 if [ $hdmi_monitor_connected -eq 1 ]; then
@@ -39,9 +39,9 @@ if [ "$action" == "internal" ] ; then
   for m in `xrandr --listmonitors  | tail -n +3 | awk '{print $2}' | sed 's/^[^a-zA-Z]//'`; do
     turn_off_all_others="$turn_off_all_others --output $m --off"
   done
-  xrandr --output eDP-1 --auto $turn_off_all_others
+  xrandr --output $internal_monitor --auto $turn_off_all_others
 elif [ "$action" == "external" ] ; then
-  xrandr --output $active_displayport_monitor --auto --output $internal_monitor --off $hdmi_command
+  xrandr --output $active_displayport_monitor --auto --mode 3840x2160 --output $internal_monitor --off $hdmi_command
 elif [ "$action" == "auto" ] ; then
   # auto magic mode
 
@@ -50,7 +50,7 @@ elif [ "$action" == "auto" ] ; then
   done
 
   if [ $external_monitor_connected -eq 1 ]; then
-    external_command="--output $active_displayport_monitor --auto --mode 3840x2160 --pos 2561x0"
+    external_command="--output $active_displayport_monitor --auto --mode 3840x2160 --pos 0x-2561"
   fi
 
   if [ $hdmi_monitor_connected -eq 1 ]; then
@@ -67,4 +67,4 @@ elif [ "$action" == "auto" ] ; then
 fi
 
 sdf_polybar
-sdf_bspwm_desktops.
+sdf_bspwm_desktops

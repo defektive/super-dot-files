@@ -46,6 +46,6 @@ yay --noconfirm -S \
   termite \
   slack-desktop \
   acpi \
-  pulseaudio-bluetooth  
+  pulseaudio-bluetooth
 
-$SOURCE_DIR/provisioners/configure_desktop.sh
+$SOURCE_DIR/provisioners/install_desktop_configs.sh

@@ -18,14 +18,16 @@ function link_config() {
     exit 1
   fi
 
+  cd $HOME/.config
   if [ ! -e $HOME/.config/$1 ]; then
     _infoStatus "Linking"
-    cd $HOME/.config
-    ln -s $SOURCE_DIR/home/.config/$1 .
-    cd - > /dev/null
+    ln -sf $SOURCE_DIR/home/.config/$1 .
   else
     _infoStatus "$HOME/.config/$1 exists"
+    rm $1
+    ln -sf $SOURCE_DIR/home/.config/$1 .
   fi
+  cd - > /dev/null
 }
 
 function link_file() {
@@ -35,12 +37,14 @@ function link_file() {
     exit 1
   fi
 
+  cd $HOME/
   if [ ! -e $HOME/$1 ]; then
     _infoStatus "Linking"
-    cd $HOME/
-    ln -s $SOURCE_DIR/home/$1 .
-    cd - > /dev/null
+    ln -sf $SOURCE_DIR/home/$1 .
   else
     _infoStatus "$HOME/$1 exists"
+    rm $1
+    ln -sf $SOURCE_DIR/home/$1 .
   fi
+  cd - > /dev/null
 }

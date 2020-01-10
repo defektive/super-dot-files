@@ -3,6 +3,9 @@ export SDF_PATH=$(dirname `dirname $(realpath ~/.profile)`)
 export GOPATH="$HOME/opt/go-workspace"
 export PATH="$GOPATH/bin:$SDF_PATH/bin:./docker/bin:./bin/:$PATH"
 
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
 export EDITOR='vim'
 export SHELL='/usr/bin/zsh'
 

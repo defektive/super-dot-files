@@ -61,7 +61,7 @@ font-2 = Icons:size=12
 font-3 = Noto Color Emoji:size=14
 modules-left = bspwm i3
 modules-center = mpd
-modules-right = memory cpu wlan eth battery date
+modules-right = memory cpu load-average wlan eth battery date
 
 [default/hd]
 background = ${colors.background}
@@ -125,6 +125,21 @@ label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
+
+[module/load-average]
+type = custom/script
+exec = uptime | grep -ohe 'load average[s:][: ].*' | awk '{ print $3" "$4" "$5"," }' | sed 's/,//g'
+interval = 30
+
+;HOW TO SET IT MINIMAL 10 CHARACTERS - HIDDEN BEHIND SYSTEM ICONS
+;label = %output%
+label = %output:10%
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #62FF00
+format-underline = #62FF00
 
 [module/filesystem]
 type = internal/fs
@@ -214,7 +229,7 @@ card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
-interval = 2
+interval = 20
 format-prefix = " :: "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
@@ -237,7 +252,7 @@ ramp-coreload-7 = █
 
 [module/memory]
 type = internal/memory
-interval = 2
+interval = 20
 format-prefix = "  "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
@@ -273,7 +288,7 @@ bar-used-empty-foreground = #444444
 [module/wlan]
 type = internal/network
 interface = wlp2s0
-interval = 3.0
+interval = 30
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
@@ -298,7 +313,7 @@ ramp-signal-foreground = ${colors.foreground}
 [module/eth]
 type = internal/network
 interface = enp0s31f6
-interval = 3.0
+interval = 30
 
 format-connected-underline = #55aa55
 format-connected-prefix = "  "

@@ -61,6 +61,49 @@ color12 = #5f5fee
 color13 = #bb88dd
 color14 = #4eb4fa
 color15 = #d0d0d0
+
+
+# special
+foreground      = #ffffff
+foreground_bold = #ffffff
+cursor          = #ffffff
+background      = #000000
+background = rgba(0, 0, 0, 0.8)
+
+
+# black
+color0  = #1b1d1e
+color8  = #505354
+
+# red
+color1  = #f92672
+color9  = #ff005c
+
+# green
+color2  = #82b414
+color10 = #9ce300
+
+# yellow
+color3  = #fd971f
+color11 = #fee000
+
+# blue
+color4  = #4e82aa
+color12 = #006ec2
+
+# magenta
+color5  = #8c54fe
+color13 = #6e28fe
+
+# cyan
+color6  = #465457
+color14 = #5290a1
+
+# white
+color7  = #ccccc6
+color15 = #f8f8f2
+
+
 # colors from color0 to color254 can be set
 [hints]
 #font = Monospace 12

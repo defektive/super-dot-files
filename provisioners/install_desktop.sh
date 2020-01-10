@@ -25,7 +25,7 @@ yay --noconfirm -S \
   google-chrome \
   firefox \
   ttf-dejavu bspwm \
-  compton \
+  picom \
   feh \
   bc \
   xorg-xev \

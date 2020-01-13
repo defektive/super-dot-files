@@ -97,6 +97,9 @@ monitor = DP1
 [bar/DP2-3840]
 inherit = default/uhd
 monitor = DP2
+[bar/HDMI1-3840]
+inherit = default/uhd
+monitor = HDMI1
 
 [bar/DP1-2560]
 inherit = default/qhd

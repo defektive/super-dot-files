@@ -41,7 +41,13 @@ if [ "$action" == "internal" ] ; then
   done
   xrandr --output $internal_monitor --auto $turn_off_all_others
 elif [ "$action" == "external" ] ; then
-  xrandr --output $active_displayport_monitor --auto --mode 3840x2160 --output $internal_monitor --off $hdmi_command
+
+  if [ $external_monitor_connected -eq 1 ]; then
+    xrandr --output $active_displayport_monitor --auto --mode 3840x2160 --output $internal_monitor --off $hdmi_command
+  elif [ $hdmi_monitor_connected -eq 1 ]; then
+    xrandr --output $active_hdmi_monitor --auto --mode 3840x2160 --output $internal_monitor --off $hdmi_command
+  fi
+
 elif [ "$action" == "auto" ] ; then
   # auto magic mode
 

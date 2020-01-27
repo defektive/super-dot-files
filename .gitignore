@@ -5,3 +5,4 @@ home/.config/personal/*
 
 !home/.config/personal/README.md
 !home/.config/personal/*.example
+home/.config/gtk-3.0/bookmarks

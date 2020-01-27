@@ -238,6 +238,7 @@ format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage%%
 format = <label> <ramp-coreload>
+ramp-coreload-spacing = 0
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load
@@ -275,7 +276,7 @@ format = <label> <bar-used>
 ;   %mb_used%
 ;   %mb_free%
 ;   %mb_total%
-label = RAM %gb_used%/%gb_free%
+label = RAM %gb_used%/%gb_total%
 
 ; Only applies if <bar-used> is used
 bar-used-indicator =
@@ -284,8 +285,8 @@ bar-used-foreground-0 = #55aa55
 bar-used-foreground-1 = #557755
 bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ff5555
-bar-used-fill = ▐
-bar-used-empty = ▐
+bar-used-fill =█
+bar-used-empty =█
 bar-used-empty-foreground = #444444
 
 [module/wlan]

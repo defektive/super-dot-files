@@ -1,7 +1,7 @@
 mkdir -p $HOME/.local/share/sdf
 
 systemctl --user import-environment DISPLAY &
-picom &
+# picom &
 feh --randomize --bg-tile $HOME/.config/wallpaper/repeatable/dark/* &
 
 start-pulseaudio-x11 &

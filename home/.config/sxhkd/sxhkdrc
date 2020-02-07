@@ -231,9 +231,13 @@ super + shift + bracket{left,right}
   bspc desktop focused -s {prev,next}; bspc desktop --focus last
 
 # Delete teh current desktop
-super + ctrl + alt + Down
-	bspc desktop next.local -f; \
-	bspc desktop last --remove
+# super + ctrl + alt + Down
+# 	bspc desktop next.local -f; \
+# 	bspc desktop last --remove
+
+# move window up/down the tree
+super + ctrl + shift + {Up,Down}
+  bspc node -s @{parent/brother,brother/first}
 
 ## reset desktops
 super + shift + Escape

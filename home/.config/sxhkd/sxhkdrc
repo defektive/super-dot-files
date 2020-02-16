@@ -236,8 +236,12 @@ super + shift + bracket{left,right}
 # 	bspc desktop last --remove
 
 # move window up/down the tree
-super + ctrl + shift + {Up,Down}
+super + ctrl + alt + {Up,Down}
   bspc node -s @{parent/brother,brother/first}
+
+# move window around the tree
+super + ctrl + shift {Left,Down,Up,Right}
+	bspc node -n {west,south,north,east}
 
 ## reset desktops
 super + shift + Escape

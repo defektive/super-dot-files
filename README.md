@@ -27,8 +27,9 @@ I've always used these as a reference when installing
 - https://wiki.archlinux.org/index.php/installation_guide
 
 ```
-pacstrap /mnt base linux linux-firmware
+pacstrap /mnt base linux linux-firmware lvm2 vim git zsh sudo
 genfstab -U /mnt >> /mnt/etc/fstab
+vim /mnt/etc/fstab # remove extra swap
 arch-chroot /mnt
 ```
 
@@ -38,13 +39,13 @@ now follow https://wiki.archlinux.org/index.php/installation_guide#Time_zone
 
 
 ```
-echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel.conf
+echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel
 useradd -m -G wheel -s /bin/bash operator
-```
-
-
-```
-git clone ...
+passwd operator
+su - operator
+mkdir .config
+cd .config
+git clone https://github.com/defektive/super-dot-files.git
 cd super-dot-files
 provisioners/install.sh
 ```

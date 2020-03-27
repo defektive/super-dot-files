@@ -34,7 +34,8 @@ yay --noconfirm -S \
   xclip \
   maim \
   ttf-font-icons \
-  wireshark-gtk \
+  wireshark-qt \
+  mpd mpc ncmpcpp \
   yubikey-personalization-gui \
   yubikey-personalization \
   yubikey-manager \

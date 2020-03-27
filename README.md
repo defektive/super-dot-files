@@ -5,15 +5,28 @@
 ![Screenshot](screenshot.png)
 ---
 
-## Getting Started
+## Usage
+
+### Keyboard Shortcuts
+
+
+|Keys                           | action                                |
+|-------------------------------|---------------------------------------|
+| `super + enter`               | New terminal window                   |
+| `super + ctrl + shift + 4`    | Take screen shot                      |
+| `super + [1-6]`               | Switch to desktop [1-6]               |
+| `super + ctrl + [1-6]`        | Move current window to desktop [1-6]  |
+
+
+## Installation
 
 ### Existing Arch Linux install
 
 - create a user, with sudo permissions
-- clone the repo
 
 ```
-cd hackistan
+git clone ...
+cd super-dot-files
 provisioners/install.sh
 ```
 
@@ -26,7 +39,6 @@ This uses vagrant, but everything should work on a clean install of Arch
 ```
 vagrant up
 ```
-
 
 ## Making things work better
 

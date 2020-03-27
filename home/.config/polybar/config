@@ -67,47 +67,32 @@ modules-right = memory cpu load-average wlan eth battery date
 background = ${colors.background}
 foreground = ${colors.foreground}
 border-color = ${colors.background}
+font-0 = DejaVu Mono:size=12
+font-1 = unifont:fontformat=truetype:size=12:antialias=false
+font-2 = Icons:size=12
+font-3 = Noto Color Emoji:size=12
 line-size = 3
 line-color = #f00
 border-size = 0
 override-redirect = true
 wm-restack = bspwm
 width = 1920
-height=25
+height=40
 modules-left = bspwm i3
 modules-center = mpd
 modules-right = memory cpu wlan eth battery date
 
-[bar/eDP1-2560]
-inherit = default/qhd
-monitor = eDP1
-
-[bar/DP1-1080]
+[bar/1920]
 inherit = default/hd
-monitor = DP1
+monitor = ${env:MONITOR:HDMI-1}
 
-[bar/DP2-1080]
-inherit = default/hd
-monitor = DP2
-
-[bar/DP1-3840]
+[bar/3840]
 inherit = default/uhd
-monitor = DP1
+monitor = ${env:MONITOR:DP-1}
 
-[bar/DP2-3840]
-inherit = default/uhd
-monitor = DP2
-[bar/HDMI1-3840]
-inherit = default/uhd
-monitor = HDMI1
-
-[bar/DP1-2560]
+[bar/2560]
 inherit = default/qhd
-monitor = DP1
-
-[bar/DP2-2560]
-inherit = default/qhd
-monitor = DP2
+monitor = ${env:MONITOR:DP-1}
 
 [module/xwindow]
 type = internal/xwindow

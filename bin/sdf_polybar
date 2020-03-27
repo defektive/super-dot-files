@@ -3,9 +3,9 @@
 sdf_bspwm_desktops
 killall polybar
 
-for monitor_info in `xrandr --listactivemonitors | tail -n +2 | awk '{print $4 "-" $3}'`; do
-  MODE=$(echo $monitor_info | cut -d '/' -f 1 | awk -F'-' '{print $NF}' )
-  export MONITOR=$(echo $monitor_info | sed 's/'$MODE'/|/' | cut -d '|' -f 1 | sed 's/-$//')
+for monitor_info in `xrandr --listactivemonitors | tail -n +2 | awk '{print $4 "|" $3}'`; do
+  MODE=$(echo $monitor_info | cut -d '|' -f 2 | cut -d '/' -f 1)
+  export MONITOR=$(echo $monitor_info | cut -d '|' -f 1)
 
   echo Monitor: $MONITOR
   echo Mode: $MODE

@@ -22,7 +22,26 @@
 
 ### Existing Arch Linux install
 
+I've always used these as a reference when installing
+- https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system#LVM_on_LUKS
+- https://wiki.archlinux.org/index.php/installation_guide
+
+```
+pacstrap /mnt base linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+```
+
+now follow https://wiki.archlinux.org/index.php/installation_guide#Time_zone
+
 - create a user, with sudo permissions
+
+
+```
+echo '%wheel ALL=(ALL) ALL' > /etc/sudoers.d/wheel.conf
+useradd -m -G wheel -s /bin/bash operator
+```
+
 
 ```
 git clone ...

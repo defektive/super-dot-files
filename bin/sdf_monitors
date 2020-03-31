@@ -4,9 +4,14 @@
 # logfile=$HOME/.local/share/sdf/sdf_monitors.log
 # exec > $logfile 2>&1
 
-internal_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^eDP'`
+if [ ! -z $SDF_BUILT_IN_DISPLAY ]; then
+  internal_monitor=$SDF_BUILT_IN_DISPLAY
+else
+  internal_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^eDP'`
+fi
 
-active_displayport_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^DP'`
+
+active_displayport_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^DP' | grep -v "$internal_monitor"`
 active_hdmi_monitor=`xrandr -q | grep -P '\bcon' | cut -d ' ' -f 1 | grep -P '^HDMI'`
 inactive_monitors=`xrandr -q | grep -P '\bdiscon' | cut -d ' ' -f 1`
 external_monitor_connected=`xrandr -q | grep -P '\b'$active_displayport_monitor' connected' | wc -l`
@@ -14,6 +19,7 @@ hdmi_monitor_connected=`xrandr -q | grep -P '\b'$active_hdmi_monitor' connected'
 if [ "$active_displayport_monitor" == "" ] ; then
   external_monitor_connected=0
 fi
+
 if [ "$active_hdmi_monitor" == "" ] ; then
   hdmi_monitor_connected=0
 fi

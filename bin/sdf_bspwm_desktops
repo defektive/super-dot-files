@@ -36,9 +36,9 @@ elif [ "$action" == "external" ] ; then
   fi
 fi
 
-if [ $current_desktop == "Desktop" ]; then
+if [ "$current_desktop" == "Desktop" ]; then
   bspc desktop next.local -f
-  bspc desktop Desktop --remove
-else
-  bspc desktop $current_desktop -f
 fi
+
+bspc desktop Desktop --remove
+bspc desktop $current_desktop -f
